@@ -4,9 +4,11 @@ import agent.PokemonPerception;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
+import frsf.cidisi.faia.state.AgentState;
 import structures.Adversario;
 import structures.Lugar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +57,18 @@ public class PokemonEnvironment extends Environment {
             return true;
 
         return false;
+    }
+
+    @Override
+    public void updateState(AgentState ast, Action action) {
+        super.updateState(ast, action);
+
+        // Mover adversarios
+        moverAdversarios();
+    }
+
+    private void moverAdversarios(Lugar actual, List<Lugar> lugaresVistos) {
+
     }
 
 }
