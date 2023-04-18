@@ -4,6 +4,12 @@ import agent.PokemonPerception;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
+import structures.Adversario;
+import structures.Lugar;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PokemonEnvironment extends Environment {
 
@@ -25,8 +31,7 @@ public class PokemonEnvironment extends Environment {
     public Perception getPercept() {
         // Crear la nueva percepcion a retornar
         PokemonPerception perception = new PokemonPerception();
-
-
+        perception.initPerception(null, this); // Pasamos null porque no es necesario el agente para setear la percepcion
         return perception;
     }
 
@@ -35,6 +40,9 @@ public class PokemonEnvironment extends Environment {
         return environmentState.toString();
     }
 
+    /**
+     * Metodo utilzado por el ambiente para saber si el agente ha fallado
+     */
     @Override
     public boolean agentFailed(Action actionReturned) {
 
