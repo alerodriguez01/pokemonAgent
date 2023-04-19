@@ -7,6 +7,6 @@ public class PokemonGoal  extends GoalTest {
     @Override
     public boolean isGoalState(AgentState agentState) {
         PokemonAgentState state = (PokemonAgentState) agentState;
-        return state.isMaestroFueDerrotadoo() && state.getCantidadPokemonesAdversarios() == 0;
+        return state.isMaestroFueDerrotado() && state.getCantidadPokemonesAdversarios() == 0;
     }
 }

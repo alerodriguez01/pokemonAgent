@@ -37,7 +37,16 @@ public class PokemonAgentState extends SearchBasedAgentState {
      */
     @Override
     public boolean equals(Object obj) {
-        return  false;
+        PokemonAgentState state = (PokemonAgentState) obj;
+        return  state.getLugarActual().equals(this.lugarActual) &&
+                state.getCantidadPokemonesAdversarios() == this.cantidadPokemonesAdversarios &&
+                state.getLugarPokemonesAdversariosConocidos().equals(this.lugarPokemonesAdversariosConocidos) &&
+                state.getLugarPokebolasConocidos().equals(this.lugarPokebolasConocidos) &&
+                state.getEnergiaInicial() == this.energiaInicial &&
+                state.getEnergiaActual() == this.energiaActual &&
+                state.getEnfriamientoAtaqueEspecial() == this.enfriamientoAtaqueEspecial &&
+                state.getAtaqueEspecialFueHabiltado() == this.getAtaqueEspecialFueHabiltado() &&
+                state.isMaestroFueDerrotado() == this.maestroFueDerrotado;
     }
 
 
@@ -53,7 +62,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
         nuevoEstado.setAtaqueEspecialFueHabiltado(this.getAtaqueEspecialFueHabiltado());
         nuevoEstado.setCantidadPokemonesAdversarios(this.getCantidadPokemonesAdversarios());
         nuevoEstado.setEnfriamientoAtaqueEspecial(this.getEnfriamientoAtaqueEspecial());
-        nuevoEstado.setMaestroFueDerrotadoo(this.isMaestroFueDerrotadoo());
+        nuevoEstado.setMaestroFueDerrotado(this.isMaestroFueDerrotado());
         nuevoEstado.setLugarActual(lugarActual.clone());
         nuevoEstado.setLugarPokebolasConocidos(Map.copyOf(this.getLugarPokebolasConocidos()));
         nuevoEstado.setLugarPokemonesAdversariosConocidos(Map.copyOf(this.getLugarPokemonesAdversariosConocidos()));
@@ -224,11 +233,11 @@ public class PokemonAgentState extends SearchBasedAgentState {
         this.ataqueEspecialFueHabiltado[2] = true;
     }
 
-    public boolean isMaestroFueDerrotadoo() {
+    public boolean isMaestroFueDerrotado() {
         return maestroFueDerrotado;
     }
 
-    public void setMaestroFueDerrotadoo(boolean maestroFueDerrotadoo) {
+    public void setMaestroFueDerrotado(boolean maestroFueDerrotadoo) {
         this.maestroFueDerrotado = maestroFueDerrotadoo;
     }
 }
