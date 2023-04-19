@@ -57,7 +57,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
         nuevoEstado.setLugarActual(lugarActual.clone());
         nuevoEstado.setLugarPokebolasConocidos(Map.copyOf(this.getLugarPokebolasConocidos()));
         nuevoEstado.setLugarPokemonesAdversariosConocidos(Map.copyOf(this.getLugarPokemonesAdversariosConocidos()));
-        return null;
+        return nuevoEstado;
     }
 
     /**
