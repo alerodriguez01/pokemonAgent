@@ -15,6 +15,8 @@ public class PokemonEnvironmentState extends EnvironmentState {
     private int agentEnergy;
     private Lugar lugarActualAgente;
     private List<Lugar> lugares;
+
+    private List<Adversario> adversarios;
     private Map<Lugar, Adversario> lugarPokemonesAdversarios;
     private Map<Lugar, Boolean> lugarPokebolas;
 
@@ -50,17 +52,21 @@ public class PokemonEnvironmentState extends EnvironmentState {
     private void crearAdversarios() {
         lugarPokemonesAdversarios = new HashMap<>();
 
-        List<Integer> adversarios = new ArrayList<>(Arrays.asList()); // no ponemos el maestro
+        List<Integer> idLugaresAdversarios = new ArrayList<>(Arrays.asList(5, 10, 15, 20)); // no ponemos el maestro
 
         int idAdv = 0;
         Adversario maestro = new Adversario(idAdv, 100, true);
         lugarPokemonesAdversarios.put(lugares.get(21), maestro);
 
-        for (Lugar lugar:lugares) {
+        Adversario advComun;
+        for (Lugar lugar: lugares) {
             idAdv++;
-            if (adversarios.contains(lugar.getId()))
-                lugarPokemonesAdversarios.put(lugar, new Adversario(idAdv, 15, false));
-            else lugarPokemonesAdversarios.put(lugar, null);
+            if (idLugaresAdversarios.contains(lugar.getId())) {
+                advComun = new Adversario(idAdv, 15, false);
+                lugarPokemonesAdversarios.put(lugar, advComun);
+                adversarios.add(advComun);
+            } else
+                lugarPokemonesAdversarios.put(lugar, null);
         }
 
     }
@@ -199,5 +205,13 @@ public class PokemonEnvironmentState extends EnvironmentState {
 
     public void setLugarPokebolas(Map<Lugar, Boolean> lugarPokebolas) {
         this.lugarPokebolas = lugarPokebolas;
+    }
+
+    public List<Adversario> getAdversarios() {
+        return adversarios;
+    }
+
+    public List<Lugar> getLugares() {
+        return lugares;
     }
 }
