@@ -46,30 +46,29 @@ public class PokemonEnvironmentState extends EnvironmentState {
         lugarPokemonesAdversarios = new HashMap<>();
         adversarios = new ArrayList<>();
 
-        List<Integer> idLugaresAdversarios = new ArrayList<>(Arrays.asList(5, 10, 15, 20)); // no ponemos el maestro
+        List<Integer> idLugaresAdvComunes = Arrays.asList(3, 4, 5, 6, 10, 15, 25);
 
         int idAdv = 0;
-        Adversario maestro = new Adversario(idAdv, 100, true);
-        lugarPokemonesAdversarios.put(lugares.get(21), maestro);
-
         Adversario advComun;
         for (Lugar lugar: lugares) {
-            idAdv++;
-            if (idLugaresAdversarios.contains(lugar.getId())) {
+            if (idLugaresAdvComunes.contains(lugar.getId())) {
                 advComun = new Adversario(idAdv, 15, false);
                 lugarPokemonesAdversarios.put(lugar, advComun);
                 adversarios.add(advComun);
+                idAdv++;
             } else
                 lugarPokemonesAdversarios.put(lugar, null);
         }
-
+        // Agregar al maestro
+        Adversario maestro = new Adversario(idAdv, 100, true);
+        lugarPokemonesAdversarios.put(lugares.get(21), maestro);
+        adversarios.add(maestro);
     }
 
     // Publico para que el ambiente y el agente construyan el mismo mapa
     public List<Lugar> crearMapa() {
 
         List<Lugar> lugares = new ArrayList<>();
-
         // Crear lugares con ID
         for (int i = 0; i < CANT_LUGARES; i++) {
             lugares.add(new Lugar(i));
@@ -77,6 +76,8 @@ public class PokemonEnvironmentState extends EnvironmentState {
 
         // Establecer adyacencias
         List<List<Lugar>> adyacencias = new ArrayList<>();
+
+        // TODO: hacer matriz de adyacencias mejor?
 
         // Lugar 0
         adyacencias.add(Arrays.asList(lugares.get(1)));
@@ -150,7 +151,7 @@ public class PokemonEnvironmentState extends EnvironmentState {
      */
     @Override
     public String toString() {
-        String str = "Agente: " + lugarActualAgente.toString() + "\n";
+        String str = "\nAgente: " + lugarActualAgente.toString() + "\n";
         for (Lugar lugar: lugares) {
             Adversario adv = lugarPokemonesAdversarios.get(lugar);
             if(adv != null)

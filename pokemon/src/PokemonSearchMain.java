@@ -11,6 +11,8 @@ public class PokemonSearchMain {
 
         pokemonEnvironment.getEnvironmentState().initState();
         System.out.println(pokemonEnvironment.toString());
+        pokemonEnvironment.moverAdversarios2();
+        System.out.println(pokemonEnvironment.toString());
 
         //SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(pokemonEnvironment, pokemonAgent);
 

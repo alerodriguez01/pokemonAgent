@@ -61,10 +61,10 @@ public class PokemonEnvironment extends Environment {
         super.updateState(ast, action);
 
         // Mover adversarios
-        // moverAdversarios();
+        this.moverAdversarios2();
     }
 
-    private void moverAdversarios2() {
+    public void moverAdversarios2() {
         Map<Lugar, Adversario> lugarPokemonesAdversarios = this.getEnvironmentState().getLugarPokemonesAdversarios();
         List<Lugar> lugares = this.getEnvironmentState().getLugares();
         List<Lugar> lugaresAdyacentes;
@@ -78,7 +78,8 @@ public class PokemonEnvironment extends Environment {
         // Decidir aleatoriamente cuantos enemigos se van a mover
         int cantAdv = this.getEnvironmentState().getAdversarios().size();
         int cantAdvAMover =  adversariosAMover.nextInt(cantAdv + 1);
-        while (cantAdvAMover > 0 && l < lugares.size())
+        int advRestantes = cantAdvAMover;
+        while (advRestantes > 0 && l < lugares.size())
         {
             adv = lugarPokemonesAdversarios.get(lugares.get(l));
             if (adv != null) // i.e. hay un enemigo en el lugar
@@ -86,7 +87,8 @@ public class PokemonEnvironment extends Environment {
                 // Si el adversario no es maestro (el maestro no se mueve)
                 if (!adv.getEsMaestro()) {
                     // Decidir si mover al adversario
-                    if (decidirMoverse.nextBoolean()) {
+                    if (((double) decidirMoverse.nextInt(cantAdvAMover + 1)) / cantAdvAMover <= 0.75) // Con p = 3/4 el adversario que puede moverse se mueve
+                    {
                         lugaresAdyacentes = lugares.get(l).getLugaresAdyacentes();
 
                         // Decidir a que lugar adyacente moverse
@@ -98,7 +100,7 @@ public class PokemonEnvironment extends Environment {
                         }
                     }
 
-                    cantAdvAMover--;
+                    advRestantes--;
                 }
             }
 
