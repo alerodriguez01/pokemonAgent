@@ -65,11 +65,11 @@ public class PokemonEnvironment extends Environment {
 
         // Mover adversarios
         moverAdversarios(getEnvironmentState().getlugarActualAgente(), null); // Metodo 1
-        
+
         this.moverAdversarios2(); // Metodo 2
     }
 
-    private void moverAdversarios(Lugar actual, List<Lugar> lugaresVistos) {
+    public void moverAdversarios(Lugar actual, List<Lugar> lugaresVistos) {
         Map<Lugar, Adversario> lugarPokemonesAdversarios = getEnvironmentState().getLugarPokemonesAdversarios();
 
         // Me aseguro de que no pasar por un lugar visto
@@ -130,40 +130,52 @@ public class PokemonEnvironment extends Environment {
         List<Lugar> lugaresAdyacentes;
         Adversario adv;
 
-        Random adversariosAMover = new Random();
-        Random decidirMoverse = new Random();
         Random proximoLugar = new Random();
-        int eleccionLugar;
+
+        List<Integer> lugaresVistos;
+        Integer lugaresPorVer;
+        Integer lugarRandom;
+
         int l = 0;
-        // Decidir aleatoriamente cuantos enemigos se van a mover
+
         int cantAdv = this.getEnvironmentState().getAdversarios().size();
-        int cantAdvAMover =  adversariosAMover.nextInt(cantAdv + 1);
-        int advRestantes = cantAdvAMover;
-        while (advRestantes > 0 && l < lugares.size())
-        {
+
+        List<Adversario> advVistos = new ArrayList<>();
+
+        while (cantAdv > 0 && l < lugares.size()) {
             adv = lugarPokemonesAdversarios.get(lugares.get(l));
-            if (adv != null) // i.e. hay un enemigo en el lugar
+            if (adv != null && !advVistos.contains(adv)) // i.e. hay un enemigo en el lugar y todavia no se movio
             {
                 // Si el adversario no es maestro (el maestro no se mueve)
                 if (!adv.getEsMaestro()) {
-                    // Decidir si mover al adversario
-                    if (((double) decidirMoverse.nextInt(cantAdvAMover + 1)) / cantAdvAMover <= 0.75) // Con p = 3/4 el adversario que puede moverse se mueve
-                    {
-                        lugaresAdyacentes = lugares.get(l).getLugaresAdyacentes();
 
-                        // Decidir a que lugar adyacente moverse
-                        eleccionLugar = proximoLugar.nextInt(lugaresAdyacentes.size());
-                        // Si el adyacente contiene un adversario, no moverse
-                        if (lugarPokemonesAdversarios.get(lugaresAdyacentes.get(eleccionLugar)) == null) {
-                            lugarPokemonesAdversarios.put(lugares.get(l), null);
-                            lugarPokemonesAdversarios.put(lugaresAdyacentes.get(eleccionLugar), adv);
+                    lugaresAdyacentes = lugares.get(l).getLugaresAdyacentes();
+
+                    // Decidir a que lugar adyacente moverse
+                    lugaresVistos = new ArrayList<>();
+                    lugaresPorVer = lugaresAdyacentes.size();
+
+                    lugarRandom = proximoLugar.nextInt(lugaresAdyacentes.size());
+                    lugaresPorVer--;
+                    lugaresVistos.add(lugarRandom);
+
+                    // Mientras nos queden lugares por ver y el adyacente elegido pseudoaleatoriamente tiene enemigo
+                    while(lugaresPorVer > 0 && lugarPokemonesAdversarios.get(lugaresAdyacentes.get(lugarRandom)) != null){
+                        lugarRandom = proximoLugar.nextInt(lugaresAdyacentes.size());
+                        if(!lugaresVistos.contains(lugarRandom)) {
+                            lugaresVistos.add(lugarRandom);
+                            lugaresPorVer--;
                         }
                     }
-
-                    advRestantes--;
+                    // Si el adyacente no contiene un adversario, moverse
+                    if (lugarPokemonesAdversarios.get(lugaresAdyacentes.get(lugarRandom)) == null) {
+                        lugarPokemonesAdversarios.put(lugares.get(l), null);
+                        lugarPokemonesAdversarios.put(lugaresAdyacentes.get(lugarRandom), adv);
+                    }
+                    advVistos.add(adv);
+                    cantAdv--;
                 }
             }
-
             l++;
         }
     }
