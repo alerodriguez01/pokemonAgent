@@ -1,5 +1,7 @@
 package structures;
 
+import java.util.Objects;
+
 public class Adversario {
 
     private Integer id;
@@ -43,6 +45,19 @@ public class Adversario {
                 ", energia=" + energia +
                 ", esMaestro=" + esMaestro +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Adversario that = (Adversario) o;
+        return Objects.equals(id, that.id) && Objects.equals(energia, that.energia) && Objects.equals(esMaestro, that.esMaestro);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, energia, esMaestro);
     }
 }
 

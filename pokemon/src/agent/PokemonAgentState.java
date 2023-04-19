@@ -66,6 +66,23 @@ public class PokemonAgentState extends SearchBasedAgentState {
      */
     @Override
     public void updateState(Perception p) {
+        PokemonPerception perception = (PokemonPerception) p;
+
+        for (var par: perception.getLugarPokebolasAdyacentes().entrySet()) {
+            lugarPokebolasConocidos.put(par.getKey(), par.getValue());
+        }
+        // ver de cambiar, poco performante
+        for (var par: perception.getLugarPokemonesAdversariosAdyacentes().entrySet()) {
+            // Busco si el enemigo esta en mi lista de enemigos concidos, y lo saco
+            for (Lugar lugar: lugarPokemonesAdversariosConocidos.keySet()) {
+                if(lugarPokemonesAdversariosConocidos.get(lugar).equals(par.getValue())) {
+                    lugarPokemonesAdversariosConocidos.put(lugar, null);
+                    break;
+                }
+            }
+            // Lo agrego en el nuevo lugar
+            lugarPokemonesAdversariosConocidos.put(par.getKey(), par.getValue());
+        }
 
     }
 
