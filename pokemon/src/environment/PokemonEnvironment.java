@@ -8,10 +8,7 @@ import frsf.cidisi.faia.state.AgentState;
 import structures.Adversario;
 import structures.Lugar;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PokemonEnvironment extends Environment {
 
@@ -64,11 +61,51 @@ public class PokemonEnvironment extends Environment {
         super.updateState(ast, action);
 
         // Mover adversarios
-        moverAdversarios();
+        this.moverAdversarios2();
     }
 
-    private void moverAdversarios(Lugar actual, List<Lugar> lugaresVistos) {
+    public void moverAdversarios2() {
+        Map<Lugar, Adversario> lugarPokemonesAdversarios = this.getEnvironmentState().getLugarPokemonesAdversarios();
+        List<Lugar> lugares = this.getEnvironmentState().getLugares();
+        List<Lugar> lugaresAdyacentes;
+        Adversario adv;
 
+        Random adversariosAMover = new Random();
+        Random decidirMoverse = new Random();
+        Random proximoLugar = new Random();
+        int eleccionLugar;
+        int l = 0;
+        // Decidir aleatoriamente cuantos enemigos se van a mover
+        int cantAdv = this.getEnvironmentState().getAdversarios().size();
+        int cantAdvAMover =  adversariosAMover.nextInt(cantAdv + 1);
+        int advRestantes = cantAdvAMover;
+        while (advRestantes > 0 && l < lugares.size())
+        {
+            adv = lugarPokemonesAdversarios.get(lugares.get(l));
+            if (adv != null) // i.e. hay un enemigo en el lugar
+            {
+                // Si el adversario no es maestro (el maestro no se mueve)
+                if (!adv.getEsMaestro()) {
+                    // Decidir si mover al adversario
+                    if (((double) decidirMoverse.nextInt(cantAdvAMover + 1)) / cantAdvAMover <= 0.75) // Con p = 3/4 el adversario que puede moverse se mueve
+                    {
+                        lugaresAdyacentes = lugares.get(l).getLugaresAdyacentes();
+
+                        // Decidir a que lugar adyacente moverse
+                        eleccionLugar = proximoLugar.nextInt(lugaresAdyacentes.size());
+                        // Si el adyacente contiene un adversario, no moverse
+                        if (lugarPokemonesAdversarios.get(lugaresAdyacentes.get(eleccionLugar)) == null) {
+                            lugarPokemonesAdversarios.put(lugares.get(l), null);
+                            lugarPokemonesAdversarios.put(lugaresAdyacentes.get(eleccionLugar), adv);
+                        }
+                    }
+
+                    advRestantes--;
+                }
+            }
+
+            l++;
+        }
     }
 
 }

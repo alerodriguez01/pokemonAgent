@@ -5,13 +5,21 @@ import environment.PokemonEnvironment;
 public class PokemonSearchMain {
     public static void main(String[] args){
 
-        PokemonAgent pokemonAgent = new PokemonAgent();
+        //PokemonAgent pokemonAgent = new PokemonAgent();
 
         PokemonEnvironment pokemonEnvironment = new PokemonEnvironment();
 
-        SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(pokemonEnvironment, pokemonAgent);
+        pokemonEnvironment.getEnvironmentState().initState();
+        System.out.println(pokemonEnvironment.toString());
+        pokemonEnvironment.moverAdversarios2();
+        System.out.println(pokemonEnvironment.toString());
 
-        simulator.start();
+        //SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(pokemonEnvironment, pokemonAgent);
+
+        //simulator.start();
+
+
+
 
     }
 }
