@@ -29,6 +29,7 @@ public class Pelear extends SearchAction {
             pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
             // Mato al adversario
             pokemonAgentState.getLugarPokemonesAdversariosConocidos().put(pokemonAgentState.getLugarActual(), null);
+            if(adv.getEsMaestro()) pokemonAgentState.setMaestroFueDerrotado(true);
 
             return pokemonAgentState;
         }
@@ -65,6 +66,7 @@ public class Pelear extends SearchAction {
             pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
             // Mato al adversario
             pokemonAgentState.getLugarPokemonesAdversariosConocidos().put(pokemonAgentState.getLugarActual(), null);
+            if(adv.getEsMaestro()) pokemonAgentState.setMaestroFueDerrotado(true);
 
             // Ambiente
             environmentState.getLugarPokemonesAdversarios().put(environmentState.getLugarActualAgente(), null);

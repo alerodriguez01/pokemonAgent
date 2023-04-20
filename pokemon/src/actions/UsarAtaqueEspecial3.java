@@ -6,6 +6,7 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
+import structures.Adversario;
 
 public class UsarAtaqueEspecial3 extends SearchAction {
     /**
@@ -15,6 +16,24 @@ public class UsarAtaqueEspecial3 extends SearchAction {
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
         PokemonAgentState pokemonAgentState = (PokemonAgentState) s;
+
+        Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(pokemonAgentState.getLugarActual());
+
+        if(pokemonAgentState.getEnergiaActual() > 0 &&
+           pokemonAgentState.getAtaqueEspecialFueHabiltado()[2] &&
+           pokemonAgentState.getEnfriamientoAtaqueEspecial()[2] == 0 &&
+           adv != null &&
+           adv.getEnergia() > 0 &&
+           !adv.getEsMaestro()){
+
+            pokemonAgentState.setEnergiaActual((int) Math.round(1.5 * pokemonAgentState.getEnergiaActual()));
+            // Mato al adversario
+            pokemonAgentState.getLugarPokemonesAdversariosConocidos().put(pokemonAgentState.getLugarActual(), null);
+            pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
+            pokemonAgentState.setEnfriamientoAtaqueEspecial3(3);
+
+            return pokemonAgentState;
+        }
 
         return null;
     }
@@ -36,11 +55,34 @@ public class UsarAtaqueEspecial3 extends SearchAction {
         PokemonEnvironmentState environmentState = (PokemonEnvironmentState) est;
         PokemonAgentState pokemonAgentState = (PokemonAgentState) ast;
 
+        Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(pokemonAgentState.getLugarActual());
+
+        if(pokemonAgentState.getEnergiaActual() > 0 &&
+                pokemonAgentState.getAtaqueEspecialFueHabiltado()[2] &&
+                pokemonAgentState.getEnfriamientoAtaqueEspecial()[2] == 0 &&
+                adv != null &&
+                adv.getEnergia() > 0 &&
+                !adv.getEsMaestro()){
+
+            // Agente
+            pokemonAgentState.setEnergiaActual((int) Math.round(1.5 * pokemonAgentState.getEnergiaActual()));
+            // Mato al adversario
+            pokemonAgentState.getLugarPokemonesAdversariosConocidos().put(pokemonAgentState.getLugarActual(), null);
+            pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
+            pokemonAgentState.setEnfriamientoAtaqueEspecial3(3);
+
+            // Ambiente
+            environmentState.getLugarPokemonesAdversarios().put(environmentState.getLugarActualAgente(), null);
+            environmentState.getAdversarios().remove(adv);
+
+            return environmentState;
+        }
+
         return null;
     }
 
     @Override
     public String toString() {
-        return "Pelear";
+        return "Ataque especial 3 usado";
     }
 }
