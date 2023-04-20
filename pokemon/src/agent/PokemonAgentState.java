@@ -64,7 +64,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
         nuevoEstado.setCantidadPokemonesAdversarios(this.getCantidadPokemonesAdversarios());
         nuevoEstado.setEnfriamientoAtaqueEspecial(this.getEnfriamientoAtaqueEspecial());
         nuevoEstado.setMaestroFueDerrotado(this.isMaestroFueDerrotado());
-        nuevoEstado.setLugarActual(lugarActual.clone());
+        nuevoEstado.setLugarActual(lugarActual);
         nuevoEstado.setLugarPokebolasConocidos(Map.copyOf(this.getLugarPokebolasConocidos()));
         nuevoEstado.setLugarPokemonesAdversariosConocidos(Map.copyOf(this.getLugarPokemonesAdversariosConocidos()));
         return nuevoEstado;
@@ -77,6 +77,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
     @Override
     public void updateState(Perception p) {
         PokemonPerception perception = (PokemonPerception) p;
+        Adversario adv;
 
         for (var par: perception.getLugarPokebolasAdyacentes().entrySet()) {
             lugarPokebolasConocidos.put(par.getKey(), par.getValue());
@@ -85,7 +86,8 @@ public class PokemonAgentState extends SearchBasedAgentState {
         for (var par: perception.getLugarPokemonesAdversariosAdyacentes().entrySet()) {
             // Busco si el enemigo esta en mi lista de enemigos concidos, y lo saco
             for (Lugar lugar: lugarPokemonesAdversariosConocidos.keySet()) {
-                if(lugarPokemonesAdversariosConocidos.get(lugar).equals(par.getValue())) {
+                adv = lugarPokemonesAdversariosConocidos.get(lugar);
+                if(adv != null && adv.equals(par.getValue())) {
                     lugarPokemonesAdversariosConocidos.put(lugar, null);
                     break;
                 }

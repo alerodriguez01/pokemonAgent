@@ -8,6 +8,7 @@ import frsf.cidisi.faia.environment.Environment;
 import structures.Adversario;
 import structures.Lugar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class PokemonPerception extends Perception {
         PokemonEnvironmentState estadoAmb = amb.getEnvironmentState();
 
         Lugar lugarAgente = estadoAmb.getlugarActualAgente();
-        List<Lugar> adyacencias = lugarAgente.getLugaresAdyacentes();
+        List<Lugar> adyacencias = new ArrayList<>(lugarAgente.getLugaresAdyacentes());
         adyacencias.add(lugarAgente);
 
         Map<Lugar, Adversario> lugarPokemonesAdversarios = estadoAmb.getLugarPokemonesAdversarios();
@@ -58,9 +59,18 @@ public class PokemonPerception extends Perception {
         lugarPokemonesAdversariosAdyacentes = amb.getEnvironmentState().getLugarPokemonesAdversarios();
     }
 
+    @Override
+    public String toString() {
+        return "PokemonPerception{" +
+                "lugarPokemonesAdversariosAdyacentes=" + lugarPokemonesAdversariosAdyacentes +
+                ", lugarPokebolasAdyacentes=" + lugarPokebolasAdyacentes +
+                '}';
+    }
+
     /**
      * Metodo para representar como string la percepcion.
      */
+    /*
     @Override
     public String toString() {
         String str = "";
@@ -69,7 +79,9 @@ public class PokemonPerception extends Perception {
                     ", pokebola: " + lugarPokebolasAdyacentes.get(par.getKey());
         }
         return str;
-    }
+    }*/
+
+
 
     public Map<Lugar, Adversario> getLugarPokemonesAdversariosAdyacentes() {
         return lugarPokemonesAdversariosAdyacentes;

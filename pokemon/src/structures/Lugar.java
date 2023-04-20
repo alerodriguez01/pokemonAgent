@@ -11,6 +11,7 @@ public class Lugar {
 
     public Lugar(Integer id) {
         this.id = id;
+        this.lugaresAdyacentes = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -47,14 +48,5 @@ public class Lugar {
         return "Lugar{" +
                 "id=" + id +
                 '}';
-    }
-
-    public Lugar clone(){
-        Lugar clon = new Lugar(this.getId());
-        List<Lugar> ady = new ArrayList<>();
-        for (Lugar lugarAdy : lugaresAdyacentes) {
-            ady.add(lugarAdy.clone());
-        }
-        return clon;
     }
 }
