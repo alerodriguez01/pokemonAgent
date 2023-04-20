@@ -159,4 +159,28 @@ public class PokemonEnvironmentState extends EnvironmentState {
     public List<Lugar> getLugares() {
         return lugares;
     }
+
+    public void setEnergiaAgente(int energiaAgente) {
+        this.energiaAgente = energiaAgente;
+    }
+
+    public Lugar getLugarActualAgente() {
+        return lugarActualAgente;
+    }
+
+    public void setLugarActualAgente(Lugar lugarActualAgente) {
+        this.lugarActualAgente = lugarActualAgente;
+    }
+
+    public void setLugarPokemonesAdversarios(Map<Lugar, Adversario> lugarPokemonesAdversarios) {
+        this.lugarPokemonesAdversarios = lugarPokemonesAdversarios;
+    }
+
+    public void setLugarPokebolas(Map<Lugar, Boolean> lugarPokebolas) {
+        this.lugarPokebolas = lugarPokebolas;
+    }
+
+    public void setAdversarios(List<Adversario> adversarios) {
+        this.adversarios = adversarios;
+    }
 }

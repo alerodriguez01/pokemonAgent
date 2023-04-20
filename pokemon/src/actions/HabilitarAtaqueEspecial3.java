@@ -16,6 +16,12 @@ public class HabilitarAtaqueEspecial3 extends SearchAction {
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
         PokemonAgentState pokemonAgentState = (PokemonAgentState) s;
 
+        if(pokemonAgentState.getEnergiaActual() > 0 &&
+           pokemonAgentState.getEnergiaActual() >= 2.20 * pokemonAgentState.getEnergiaInicial()) {
+            pokemonAgentState.setAtaqueEspecial3FueHabiltado();
+            return pokemonAgentState;
+        }
+
         return null;
     }
 
@@ -36,11 +42,19 @@ public class HabilitarAtaqueEspecial3 extends SearchAction {
         PokemonEnvironmentState environmentState = (PokemonEnvironmentState) est;
         PokemonAgentState pokemonAgentState = (PokemonAgentState) ast;
 
+        if(pokemonAgentState.getEnergiaActual() > 0 &&
+           pokemonAgentState.getEnergiaActual() >= 2.20 * pokemonAgentState.getEnergiaInicial()) {
+            // Actualiza el estado del pokemon
+            pokemonAgentState.setAtaqueEspecial3FueHabiltado();
+            // Y en esta accion, el ambiente no se modifica
+            return environmentState;
+        }
+
         return null;
     }
 
     @Override
     public String toString() {
-        return "Pelear";
+        return "Ataque especial 3 habilitado";
     }
 }

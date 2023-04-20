@@ -6,8 +6,17 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
+import structures.Adversario;
+import structures.Lugar;
 
-public class HabilitarAtaqueEspecial2 extends SearchAction {
+public class EscaparA extends SearchAction {
+
+    private Lugar lugar;
+
+    public EscaparA(Lugar lugar) {
+        this.lugar = lugar;
+    }
+
     /**
      * Este metodo actualiza el estado del nodo del arbol cuando
      * el proceso de busqueda esta corriendo.
@@ -16,9 +25,15 @@ public class HabilitarAtaqueEspecial2 extends SearchAction {
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
         PokemonAgentState pokemonAgentState = (PokemonAgentState) s;
 
+        Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(lugar);
+
         if(pokemonAgentState.getEnergiaActual() > 0 &&
-           pokemonAgentState.getEnergiaActual() >= 1.75 * pokemonAgentState.getEnergiaInicial()) {
-            pokemonAgentState.setAtaqueEspecial2FueHabiltado();
+                pokemonAgentState.getLugarActual().getLugaresAdyacentes().contains(lugar) &&
+                adv != null){
+
+            pokemonAgentState.setLugarActual(lugar);
+            pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual() - (int) Math.round(0.25 * adv.getEnergia()));
+
             return pokemonAgentState;
         }
 
@@ -42,11 +57,19 @@ public class HabilitarAtaqueEspecial2 extends SearchAction {
         PokemonEnvironmentState environmentState = (PokemonEnvironmentState) est;
         PokemonAgentState pokemonAgentState = (PokemonAgentState) ast;
 
+        Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(lugar);
+
         if(pokemonAgentState.getEnergiaActual() > 0 &&
-           pokemonAgentState.getEnergiaActual() >= 1.75 * pokemonAgentState.getEnergiaInicial()) {
-            // Actualiza el estado del pokemon
-            pokemonAgentState.setAtaqueEspecial2FueHabiltado();
-            // Y en esta accion, el ambiente no se modifica
+                pokemonAgentState.getLugarActual().getLugaresAdyacentes().contains(lugar) &&
+                adv != null){
+
+            // Cambiamos estado agente
+            pokemonAgentState.setLugarActual(lugar);
+            pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual() - (int) Math.round(0.25 * adv.getEnergia()));
+
+            // Cambiamos estado ambiente
+            environmentState.setLugarActualAgente(lugar);
+
             return environmentState;
         }
 
@@ -55,6 +78,7 @@ public class HabilitarAtaqueEspecial2 extends SearchAction {
 
     @Override
     public String toString() {
-        return "Ataque especial 2 habilitado";
+        return "EscaparA"+lugar;
     }
+
 }

@@ -8,6 +8,8 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
 import frsf.cidisi.faia.solver.search.DepthFirstSearch;
 import frsf.cidisi.faia.solver.search.Search;
+import structures.Lugar;
+import utilities.Utilities;
 
 import java.util.Vector;
 import java.util.logging.Level;
@@ -29,7 +31,10 @@ public class PokemonAgent extends SearchBasedAgent {
         operators.addElement(new HabilitarAtaqueEspecial1());
         operators.addElement(new HabilitarAtaqueEspecial2());
         operators.addElement(new HabilitarAtaqueEspecial3());
-        for (int i = 1; i < 30; i++) operators.addElement(new MoverseA(i));
+        for (Lugar lugar : pokemonAgentState.getLugares()) {
+            operators.addElement(new MoverseA(lugar));
+            operators.addElement(new EscaparA(lugar));
+        }
         operators.addElement(new Pelear());
         operators.addElement(new UsarAtaqueEspecial1());
         operators.addElement(new UsarAtaqueEspecial2());

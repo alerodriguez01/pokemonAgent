@@ -14,6 +14,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
      * Atributos que definen el estado
      */
     private Lugar lugarActual;
+    private List<Lugar> lugares;
     private int cantidadPokemonesAdversarios;
     private Map<Lugar, Adversario> lugarPokemonesAdversariosConocidos;
     private Map<Lugar, Boolean> lugarPokebolasConocidos;
@@ -101,7 +102,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
     @Override
     public void initState() {
         // Crear mapa del agente
-        List<Lugar> lugares = Utilities.crearMapa();
+        lugares = Utilities.crearMapa();
         lugarActual = lugares.get(Utilities.getPosInicialAgente());
         // Inicializar demas variables
         cantidadPokemonesAdversarios = Utilities.CANT_ADVERSARIOS;
@@ -239,5 +240,13 @@ public class PokemonAgentState extends SearchBasedAgentState {
 
     public void setMaestroFueDerrotado(boolean maestroFueDerrotadoo) {
         this.maestroFueDerrotado = maestroFueDerrotadoo;
+    }
+
+    public List<Lugar> getLugares() {
+        return lugares;
+    }
+
+    public void setLugares(List<Lugar> lugares) {
+        this.lugares = lugares;
     }
 }
