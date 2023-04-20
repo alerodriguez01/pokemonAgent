@@ -17,8 +17,11 @@
  */
 package frsf.cidisi.faia.simulator;
 
+import java.util.Random;
 import java.util.Vector;
 
+import agent.PokemonAgent;
+import agent.PokemonAgentState;
 import frsf.cidisi.faia.agent.GoalBasedAgent;
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Action;
@@ -65,6 +68,9 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
          * This works even when the agent starts with a goal state (see agentSucceeded
          * method in the SearchBasedAgentSimulator).
          */
+        Random random = new Random();
+        int enfriamientoSatelite = 0;
+
         do {
 
             System.out.println("------------------------------------");
@@ -73,6 +79,38 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             perception = this.getPercept();
             agent.see(perception);
             System.out.println("Perception: " + perception);
+
+            // Uso de satelite
+            if(enfriamientoSatelite == 0){
+                enfriamientoSatelite = 5 + random.nextInt(6);
+                perception = this.getSatelitePercept();
+                agent.see(perception);
+                System.out.println("Satelite perception: " + perception);
+            }
+            enfriamientoSatelite--;
+
+
+            PokemonAgent pokemonAgent = (PokemonAgent) agent;
+            PokemonAgentState pokemonAgentState = (PokemonAgentState) pokemonAgent.getAgentState();
+            // Enfriamiento ataque especial 1
+            if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[0] == 0){
+                pokemonAgentState.setEnfriamientoAtaqueEspecial1(3);
+            } else{
+                pokemonAgentState.setEnfriamientoAtaqueEspecial1(pokemonAgentState.getEnfriamientoAtaqueEspecial()[0]-1);
+            }
+            // Enfriamiento ataque especial 2
+            if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[1] == 0){
+                pokemonAgentState.setEnfriamientoAtaqueEspecial1(3);
+            } else{
+                pokemonAgentState.setEnfriamientoAtaqueEspecial1(pokemonAgentState.getEnfriamientoAtaqueEspecial()[1]-1);
+            }
+            // Enfriamiento ataque especial 3
+            if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[2] == 0){
+                pokemonAgentState.setEnfriamientoAtaqueEspecial1(3);
+            } else{
+                pokemonAgentState.setEnfriamientoAtaqueEspecial1(pokemonAgentState.getEnfriamientoAtaqueEspecial()[2]-1);
+            }
+
 
             System.out.println("Agent State: " + agent.getAgentState());
             System.out.println("Environment: " + environment);

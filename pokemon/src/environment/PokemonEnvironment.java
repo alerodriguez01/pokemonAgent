@@ -15,6 +15,7 @@ public class PokemonEnvironment extends Environment {
     public PokemonEnvironment() {
         // Create the environment state
         this.environmentState = new PokemonEnvironmentState();
+        environmentState.initState();
     }
 
     @Override
@@ -31,6 +32,13 @@ public class PokemonEnvironment extends Environment {
         // Crear la nueva percepcion a retornar
         PokemonPerception perception = new PokemonPerception();
         perception.initPerception(null, this); // Pasamos null porque no es necesario el agente para setear la percepcion
+        return perception;
+    }
+
+    public Perception getSatelitePercept(){
+        // Crear la nueva percepcion a retornar
+        PokemonPerception perception = new PokemonPerception();
+        perception.satelitePerception(this); // Pasamos null porque no es necesario el agente para setear la percepcion
         return perception;
     }
 

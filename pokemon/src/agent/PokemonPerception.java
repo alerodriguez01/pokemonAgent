@@ -52,6 +52,12 @@ public class PokemonPerception extends Perception {
 
     }
 
+    public void satelitePerception(Environment environment){
+        PokemonEnvironment amb = (PokemonEnvironment) environment;
+        lugarPokebolasAdyacentes = amb.getEnvironmentState().getLugarPokebolas();
+        lugarPokemonesAdversariosAdyacentes = amb.getEnvironmentState().getLugarPokemonesAdversarios();
+    }
+
     /**
      * Metodo para representar como string la percepcion.
      */

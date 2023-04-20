@@ -19,6 +19,7 @@ package frsf.cidisi.faia.simulator;
 
 import java.util.Vector;
 
+import environment.PokemonEnvironment;
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
@@ -55,6 +56,11 @@ public abstract class Simulator {
 
     public Perception getPercept() {
         return this.getEnvironment().getPercept();
+    }
+
+    public Perception getSatelitePercept() {
+        PokemonEnvironment pokemonEnvironment = (PokemonEnvironment) this.getEnvironment();
+        return pokemonEnvironment.getSatelitePercept();
     }
 
     public void setEnvironment(Environment evm) {
