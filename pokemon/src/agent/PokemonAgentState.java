@@ -65,8 +65,8 @@ public class PokemonAgentState extends SearchBasedAgentState {
         nuevoEstado.setEnfriamientoAtaqueEspecial(this.getEnfriamientoAtaqueEspecial());
         nuevoEstado.setMaestroFueDerrotado(this.isMaestroFueDerrotado());
         nuevoEstado.setLugarActual(lugarActual);
-        nuevoEstado.setLugarPokebolasConocidos(Map.copyOf(this.getLugarPokebolasConocidos()));
-        nuevoEstado.setLugarPokemonesAdversariosConocidos(Map.copyOf(this.getLugarPokemonesAdversariosConocidos()));
+        nuevoEstado.setLugarPokebolasConocidos(new HashMap<>(this.getLugarPokebolasConocidos()));
+        nuevoEstado.setLugarPokemonesAdversariosConocidos(new HashMap<>(this.getLugarPokemonesAdversariosConocidos()));
         return nuevoEstado;
     }
 
