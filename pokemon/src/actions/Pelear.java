@@ -70,6 +70,7 @@ public class Pelear extends SearchAction {
 
             // Ambiente
             environmentState.getAdversarios().set(environmentState.getLugarActualAgente(), null);
+            environmentState.setEnergiaAgente(environmentState.getEnergiaAgente() - adv.getEnergia() + (int) Math.round(adv.getEnergia() * 0.2));
 
             return environmentState;
         }

@@ -73,6 +73,7 @@ public class UsarAtaqueEspecial3 extends SearchAction {
 
             // Ambiente
             environmentState.getAdversarios().set(environmentState.getLugarActualAgente(), null);
+            environmentState.setEnergiaAgente((int) Math.round(1.5 * environmentState.getEnergiaAgente()));
 
             return environmentState;
         }

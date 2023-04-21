@@ -68,6 +68,7 @@ public class EscaparA extends SearchAction {
 
             // Cambiamos estado ambiente
             environmentState.setLugarActualAgente(lugar);
+            environmentState.setEnergiaAgente(environmentState.getEnergiaAgente() - (int) Math.round(0.25 * adv.getEnergia()));
 
             return environmentState;
         }

@@ -63,6 +63,7 @@ public class ConsumirPokebola extends SearchAction {
             pokemonAgentState.getLugarPokebolasConocidos().set(pokemonAgentState.getLugarActual(), false);
 
             // Cambio del estado del ambiente
+            environmentState.setEnergiaAgente(environmentState.getEnergiaAgente()+energiaPokebola);
             environmentState.getLugarPokebolas().set(environmentState.getLugarActualAgente(), false);
 
             return environmentState;
