@@ -27,7 +27,7 @@ public class ConsumirPokebola extends SearchAction {
             Random random = new Random();
             int energiaPokebola = 5 + random.nextInt(6); // Entre 5 y 10
             pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual()+energiaPokebola);
-            pokemonAgentState.getLugarPokebolasConocidos().put(pokemonAgentState.getLugarActual(), false);
+            pokemonAgentState.getLugarPokebolasConocidos().set(pokemonAgentState.getLugarActual(), false);
 
             return pokemonAgentState;
 
@@ -60,10 +60,10 @@ public class ConsumirPokebola extends SearchAction {
             Random random = new Random();
             int energiaPokebola = 5 + random.nextInt(6); // Entre 5 y 10
             pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual()+energiaPokebola);
-            pokemonAgentState.getLugarPokebolasConocidos().put(pokemonAgentState.getLugarActual(), false);
+            pokemonAgentState.getLugarPokebolasConocidos().set(pokemonAgentState.getLugarActual(), false);
 
             // Cambio del estado del ambiente
-            environmentState.getLugarPokebolas().put(environmentState.getlugarActualAgente(), false);
+            environmentState.getLugarPokebolas().set(environmentState.getLugarActualAgente(), false);
 
             return environmentState;
 

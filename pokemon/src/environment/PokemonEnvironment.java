@@ -6,7 +6,6 @@ import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
 import frsf.cidisi.faia.state.AgentState;
 import structures.Adversario;
-import structures.Lugar;
 
 import java.util.*;
 
@@ -72,70 +71,14 @@ public class PokemonEnvironment extends Environment {
         super.updateState(ast, action);
 
         // Mover adversarios
-        //moverAdversarios(getEnvironmentState().getlugarActualAgente(), null); // Metodo 1
-
         this.moverAdversarios2(); // Metodo 2
     }
 
-    public void moverAdversarios(Lugar actual, List<Lugar> lugaresVistos) {
-        Map<Lugar, Adversario> lugarPokemonesAdversarios = getEnvironmentState().getLugarPokemonesAdversarios();
-
-        // Me aseguro de que no pasar por un lugar visto
-        List<Integer> randomVistos = new ArrayList<>();
-        Integer randomsPorVer = actual.getLugaresAdyacentes().size() - 1;
-
-        Integer random = (int) Math.random() * (actual.getLugaresAdyacentes().size() - 1);
-        randomsPorVer--;
-        randomVistos.add(random);
-        Lugar lugarDestino = actual.getLugaresAdyacentes().get(random);
-
-        if (lugaresVistos == null) lugaresVistos = new ArrayList<>();
-
-        // Si elegi un lugar random, y ya esta dentro de los visitados anteriormente
-        // trato de cambiarlo (ejecuto el bucle mientras me queden lugares adyacentes por ver)
-        while (lugaresVistos.contains(lugarDestino) && randomsPorVer != 0) {
-            random = (int) Math.random() * (actual.getLugaresAdyacentes().size() - 1);
-            if (!randomVistos.contains(random)) {
-                randomVistos.add(random);
-                randomsPorVer--;
-            }
-            lugarDestino = actual.getLugaresAdyacentes().get(random);
-        }
-        // Si no me quedaron opciones por moverme, entonces no me queda otra que arrancar nuevamente
-        // desde el nodo actual
-        if (randomsPorVer == 0) lugaresVistos = new ArrayList<>();
-
-        Adversario advActual = lugarPokemonesAdversarios.get(actual);
-        // Si en el lugar actual tengo enemigo
-        if (advActual != null) {
-
-            // Hay adversario en el adyacente random
-            if (lugarPokemonesAdversarios.get(lugarDestino) != null) {
-
-                lugaresVistos.add(actual); // agrego el lugar actual como lugar visto
-
-                moverAdversarios(lugarDestino, lugaresVistos);
-
-                // Pudo haber cambiado el camino (y ya no estoy incluido en el)
-                // si estoy en el camino actual y no cambio mi adversario
-                if (lugaresVistos.contains(actual) && lugarPokemonesAdversarios.get(actual) == advActual) {
-                    lugarPokemonesAdversarios.put(lugarDestino, advActual);
-                }
-
-            } else { // caso base
-                lugarPokemonesAdversarios.put(lugarDestino, advActual);
-            }
-        } else {
-            // Si no tengo enemigos en el lugar actual es porque el algoritmo inicio en un lugar
-            // sin enemigos. Lo arranco nuevamente desde otro nodo.
-            moverAdversarios(lugarDestino, lugaresVistos);
-        }
-    }
 
     public void moverAdversarios2() {
-        Map<Lugar, Adversario> lugarPokemonesAdversarios = this.getEnvironmentState().getLugarPokemonesAdversarios();
-        List<Lugar> lugares = this.getEnvironmentState().getLugares();
-        List<Lugar> lugaresAdyacentes;
+        List<Adversario> adversarios = this.getEnvironmentState().getAdversarios();
+        List<Integer> lugaresAdyacentes;
+        List<List<Integer>> lugares = this.getEnvironmentState().getLugares();
         Adversario adv;
 
         Random proximoLugar = new Random();
@@ -151,13 +94,13 @@ public class PokemonEnvironment extends Environment {
         List<Adversario> advVistos = new ArrayList<>();
 
         while (cantAdv > 0 && l < lugares.size()) {
-            adv = lugarPokemonesAdversarios.get(lugares.get(l));
+            adv = adversarios.get(l);
             if (adv != null && !advVistos.contains(adv)) // i.e. hay un enemigo en el lugar y todavia no se movio
             {
                 // Si el adversario no es maestro (el maestro no se mueve)
                 if (!adv.getEsMaestro()) {
 
-                    lugaresAdyacentes = lugares.get(l).getLugaresAdyacentes();
+                    lugaresAdyacentes = lugares.get(l);
 
                     // Decidir a que lugar adyacente moverse
                     lugaresVistos = new ArrayList<>();
@@ -168,7 +111,7 @@ public class PokemonEnvironment extends Environment {
                     lugaresVistos.add(lugarRandom);
 
                     // Mientras nos queden lugares por ver y el adyacente elegido pseudoaleatoriamente tiene enemigo
-                    while(lugaresPorVer > 0 && lugarPokemonesAdversarios.get(lugaresAdyacentes.get(lugarRandom)) != null){
+                    while(lugaresPorVer > 0 && adversarios.get(lugarRandom) != null){
                         lugarRandom = proximoLugar.nextInt(lugaresAdyacentes.size());
                         if(!lugaresVistos.contains(lugarRandom)) {
                             lugaresVistos.add(lugarRandom);
@@ -176,9 +119,9 @@ public class PokemonEnvironment extends Environment {
                         }
                     }
                     // Si el adyacente no contiene un adversario, moverse
-                    if (lugarPokemonesAdversarios.get(lugaresAdyacentes.get(lugarRandom)) == null) {
-                        lugarPokemonesAdversarios.put(lugares.get(l), null);
-                        lugarPokemonesAdversarios.put(lugaresAdyacentes.get(lugarRandom), adv);
+                    if (adversarios.get(lugarRandom) == null) {
+                        adversarios.set(l, null);
+                        adversarios.set(lugarRandom, adv);
                     }
                     advVistos.add(adv);
                     cantAdv--;

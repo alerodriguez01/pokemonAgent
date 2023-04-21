@@ -3,7 +3,6 @@ package agent;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import structures.Adversario;
-import structures.Lugar;
 import utilities.Utilities;
 
 import java.util.*;
@@ -13,14 +12,14 @@ public class PokemonAgentState extends SearchBasedAgentState {
     /**
      * Atributos que definen el estado
      */
-    private Lugar lugarActual;
-    private List<Lugar> lugares;
-    private int cantidadPokemonesAdversarios;
-    private Map<Lugar, Adversario> lugarPokemonesAdversariosConocidos;
-    private Map<Lugar, Boolean> lugarPokebolasConocidos;
-    private int energiaInicial;
-    private int energiaActual;
-    private int[] enfriamientoAtaqueEspecial;
+    private Integer lugarActual;
+    private List<List<Integer>> lugares;
+    private Integer cantidadPokemonesAdversarios;
+    private List<Adversario> lugarPokemonesAdversariosConocidos;
+    private List<Boolean> lugarPokebolasConocidos;
+    private Integer energiaInicial;
+    private Integer energiaActual;
+    private Integer[] enfriamientoAtaqueEspecial;
     private boolean[] ataqueEspecialFueHabiltado;
     private boolean maestroFueDerrotado;
 
@@ -39,7 +38,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
     @Override
     public boolean equals(Object obj) {
         PokemonAgentState state = (PokemonAgentState) obj;
-        return  state.getLugarActual().equals(this.lugarActual) &&
+        return state.getLugarActual().equals(this.lugarActual) &&
                 state.getCantidadPokemonesAdversarios() == this.cantidadPokemonesAdversarios &&
                 state.getLugarPokemonesAdversariosConocidos().equals(this.lugarPokemonesAdversariosConocidos) &&
                 state.getLugarPokebolasConocidos().equals(this.lugarPokebolasConocidos) &&
@@ -58,15 +57,15 @@ public class PokemonAgentState extends SearchBasedAgentState {
     @Override
     public SearchBasedAgentState clone() {
         PokemonAgentState nuevoEstado = new PokemonAgentState();
-        nuevoEstado.setEnergiaActual(this.getEnergiaActual());
+        nuevoEstado.setEnergiaActual(Integer.valueOf((int)this.getEnergiaActual()));
         nuevoEstado.setEnergiaInicial(this.getEnergiaInicial());
         nuevoEstado.setAtaqueEspecialFueHabiltado(this.getAtaqueEspecialFueHabiltado());
         nuevoEstado.setCantidadPokemonesAdversarios(this.getCantidadPokemonesAdversarios());
         nuevoEstado.setEnfriamientoAtaqueEspecial(this.getEnfriamientoAtaqueEspecial());
         nuevoEstado.setMaestroFueDerrotado(this.isMaestroFueDerrotado());
-        nuevoEstado.setLugarActual(this.getLugarActual()); // No interesa pasar el mismo Lugar, ninguna accion lo modifica
-        nuevoEstado.setLugarPokebolasConocidos(new HashMap<>(this.getLugarPokebolasConocidos()));
-        nuevoEstado.setLugarPokemonesAdversariosConocidos(new HashMap<>(this.getLugarPokemonesAdversariosConocidos()));
+        nuevoEstado.setLugarActual(this.getLugarActual());
+        nuevoEstado.setLugarPokebolasConocidos(new ArrayList<>(this.getLugarPokebolasConocidos()));
+        nuevoEstado.setLugarPokemonesAdversariosConocidos(new ArrayList<>(this.getLugarPokemonesAdversariosConocidos()));
         return nuevoEstado;
     }
 
@@ -77,30 +76,22 @@ public class PokemonAgentState extends SearchBasedAgentState {
     @Override
     public void updateState(Perception p) {
         PokemonPerception perception = (PokemonPerception) p;
-        Adversario adv;
 
-        // Si la percepcion contiene todos los lugares, quiere decir que es el satelite
-        if(((PokemonPerception) p).getLugarPokemonesAdversariosAdyacentes().size() == Utilities.CANT_LUGARES){
-            // Directamente asigno las copias de la percepcion
-            lugarPokemonesAdversariosConocidos = new HashMap<>(((PokemonPerception) p).getLugarPokemonesAdversariosAdyacentes());
-            lugarPokebolasConocidos = new HashMap<>(((PokemonPerception) p).getLugarPokebolasAdyacentes());
-        }else { // sino, asigno segun las adyacencias enviadas
-            for (var par: perception.getLugarPokebolasAdyacentes().entrySet()) {
-                lugarPokebolasConocidos.put(par.getKey(), par.getValue());
-            }
-            // ver de cambiar, poco performante
-            for (var par: perception.getLugarPokemonesAdversariosAdyacentes().entrySet()) {
-                // Busco si el enemigo esta en mi lista de enemigos concidos, y lo saco
-                for (Lugar lugar: lugarPokemonesAdversariosConocidos.keySet()) {
-                    adv = lugarPokemonesAdversariosConocidos.get(lugar);
-                    if(adv != null && adv.equals(par.getValue())) {
-                        lugarPokemonesAdversariosConocidos.put(lugar, null);
-                        break;
-                    }
+        for (var par : perception.getLugarPokebolasAdyacentes().entrySet()) {
+            lugarPokebolasConocidos.set(par.getKey(), par.getValue());
+        }
+        // ver de cambiar, poco performante
+        for (var par : perception.getLugarPokemonesAdversariosAdyacentes().entrySet()) {
+            // Busco si el enemigo esta en mi lista de enemigos concidos, y lo saco
+            for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
+                Adversario adv = lugarPokemonesAdversariosConocidos.get(i);
+                if (adv != null && adv.equals(par.getValue())) {
+                    lugarPokemonesAdversariosConocidos.set(i, null);
+                    break;
                 }
-                // Lo agrego en el nuevo lugar
-                lugarPokemonesAdversariosConocidos.put(par.getKey(), par.getValue());
             }
+            // Lo agrego en el nuevo lugar
+            lugarPokemonesAdversariosConocidos.set(par.getKey(), par.getValue());
         }
 
     }
@@ -112,18 +103,18 @@ public class PokemonAgentState extends SearchBasedAgentState {
     public void initState() {
         // Crear mapa del agente
         lugares = Utilities.crearMapa();
-        lugarActual = lugares.get(Utilities.getPosInicialAgente());
+        lugarActual = Utilities.getPosInicialAgente();
         // Inicializar demas variables
-        cantidadPokemonesAdversarios = Utilities.CANT_ADVERSARIOS;
-        lugarPokemonesAdversariosConocidos = new HashMap<>();
-        lugarPokebolasConocidos = new HashMap<>();
+        cantidadPokemonesAdversarios = Utilities.CANT_ADVERSARIOS+1;
+        lugarPokemonesAdversariosConocidos = new ArrayList<>();
+        lugarPokebolasConocidos = new ArrayList<>();
         for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
-            lugarPokemonesAdversariosConocidos.put(lugares.get(i), null);
-            lugarPokebolasConocidos.put(lugares.get(i), false);
+            lugarPokemonesAdversariosConocidos.add(null);
+            lugarPokebolasConocidos.add(null);
         }
         energiaInicial = Utilities.getEnergiaInicialAgente();
         energiaActual = Utilities.getEnergiaInicialAgente();
-        enfriamientoAtaqueEspecial = new int[3];
+        enfriamientoAtaqueEspecial = new Integer[3];
         enfriamientoAtaqueEspecial[0] = 0;
         enfriamientoAtaqueEspecial[1] = 0;
         enfriamientoAtaqueEspecial[2] = 0;
@@ -142,6 +133,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
     public String toString() {
         return "PokemonAgentState{" +
                 "lugarActual=" + lugarActual +
+                ", lugares=" + lugares +
                 ", cantidadPokemonesAdversarios=" + cantidadPokemonesAdversarios +
                 ", lugarPokemonesAdversariosConocidos=" + lugarPokemonesAdversariosConocidos +
                 ", lugarPokebolasConocidos=" + lugarPokebolasConocidos +
@@ -149,81 +141,64 @@ public class PokemonAgentState extends SearchBasedAgentState {
                 ", energiaActual=" + energiaActual +
                 ", enfriamientoAtaqueEspecial=" + Arrays.toString(enfriamientoAtaqueEspecial) +
                 ", ataqueEspecialFueHabiltado=" + Arrays.toString(ataqueEspecialFueHabiltado) +
-                ", maestroFueDerrotadoo=" + maestroFueDerrotado +
+                ", maestroFueDerrotado=" + maestroFueDerrotado +
                 '}';
     }
-    /**
-     * Metodos extras
-     */
+/**
+ * Metodos extras
+ */
 
 
     /**
      * Getters y setters
      */
-    public Lugar getLugarActual() {
-        return lugarActual;
-    }
 
-    public void setLugarActual(Lugar lugarActual) {
-        this.lugarActual = lugarActual;
-    }
 
-    public int getCantidadPokemonesAdversarios() {
+    public Integer getCantidadPokemonesAdversarios() {
         return cantidadPokemonesAdversarios;
     }
 
-    public void setCantidadPokemonesAdversarios(int cantidadPokemonesAdversarios) {
+    public void setCantidadPokemonesAdversarios(Integer cantidadPokemonesAdversarios) {
         this.cantidadPokemonesAdversarios = cantidadPokemonesAdversarios;
     }
 
-    public Map<Lugar, Adversario> getLugarPokemonesAdversariosConocidos() {
-        return lugarPokemonesAdversariosConocidos;
-    }
 
-    public void setLugarPokemonesAdversariosConocidos(Map<Lugar, Adversario> lugarPokemonesAdversariosConocidos) {
-        this.lugarPokemonesAdversariosConocidos = lugarPokemonesAdversariosConocidos;
-    }
-
-    public Map<Lugar, Boolean> getLugarPokebolasConocidos() {
-        return lugarPokebolasConocidos;
-    }
-
-    public void setLugarPokebolasConocidos(Map<Lugar, Boolean> lugarPokebolasConocidos) {
-        this.lugarPokebolasConocidos = lugarPokebolasConocidos;
-    }
-
-    public int getEnergiaInicial() {
+    public Integer getEnergiaInicial() {
         return energiaInicial;
     }
 
-    public void setEnergiaInicial(int energiaInicial) {
+    public void setEnergiaInicial(Integer energiaInicial) {
         this.energiaInicial = energiaInicial;
     }
 
-    public int getEnergiaActual() {
+    public Integer getEnergiaActual() {
         return energiaActual;
     }
 
-    public void setEnergiaActual(int energiaActual) {
+    public void setEnergiaActual(Integer energiaActual) {
         this.energiaActual = energiaActual;
     }
 
-    public int[] getEnfriamientoAtaqueEspecial() {
+    public Integer[] getEnfriamientoAtaqueEspecial() {
         return enfriamientoAtaqueEspecial;
     }
 
-    public void setEnfriamientoAtaqueEspecial(int[] enfriamientoAtaqueEspecial) {
+    public void setEnfriamientoAtaqueEspecial(Integer[] enfriamientoAtaqueEspecial) {
         this.enfriamientoAtaqueEspecial = enfriamientoAtaqueEspecial;
     }
-    public void setEnfriamientoAtaqueEspecial1(int enfriamientoAtaqueEspecial) {
+
+    public void setEnfriamientoAtaqueEspecial1(Integer enfriamientoAtaqueEspecial) {
         this.enfriamientoAtaqueEspecial[0] = enfriamientoAtaqueEspecial;
     }
-    public void setEnfriamientoAtaqueEspecial2(int enfriamientoAtaqueEspecial) {
+
+    public void setEnfriamientoAtaqueEspecial2(Integer enfriamientoAtaqueEspecial) {
         this.enfriamientoAtaqueEspecial[1] = enfriamientoAtaqueEspecial;
     }
-    public void setEnfriamientoAtaqueEspecial3(int enfriamientoAtaqueEspecial) {
+
+    public void setEnfriamientoAtaqueEspecial3(Integer enfriamientoAtaqueEspecial) {
         this.enfriamientoAtaqueEspecial[2] = enfriamientoAtaqueEspecial;
     }
+
     public boolean[] getAtaqueEspecialFueHabiltado() {
         return ataqueEspecialFueHabiltado;
     }
@@ -236,9 +211,11 @@ public class PokemonAgentState extends SearchBasedAgentState {
     public void setAtaqueEspecial1FueHabiltado() {
         this.ataqueEspecialFueHabiltado[0] = true;
     }
+
     public void setAtaqueEspecial2FueHabiltado() {
         this.ataqueEspecialFueHabiltado[1] = true;
     }
+
     public void setAtaqueEspecial3FueHabiltado() {
         this.ataqueEspecialFueHabiltado[2] = true;
     }
@@ -251,11 +228,35 @@ public class PokemonAgentState extends SearchBasedAgentState {
         this.maestroFueDerrotado = maestroFueDerrotadoo;
     }
 
-    public List<Lugar> getLugares() {
+    public Integer getLugarActual() {
+        return lugarActual;
+    }
+
+    public void setLugarActual(Integer lugarActual) {
+        this.lugarActual = lugarActual;
+    }
+
+    public List<List<Integer>> getLugares() {
         return lugares;
     }
 
-    public void setLugares(List<Lugar> lugares) {
+    public void setLugares(List<List<Integer>> lugares) {
         this.lugares = lugares;
+    }
+
+    public List<Adversario> getLugarPokemonesAdversariosConocidos() {
+        return lugarPokemonesAdversariosConocidos;
+    }
+
+    public void setLugarPokemonesAdversariosConocidos(List<Adversario> lugarPokemonesAdversariosConocidos) {
+        this.lugarPokemonesAdversariosConocidos = lugarPokemonesAdversariosConocidos;
+    }
+
+    public List<Boolean> getLugarPokebolasConocidos() {
+        return lugarPokebolasConocidos;
+    }
+
+    public void setLugarPokebolasConocidos(List<Boolean> lugarPokebolasConocidos) {
+        this.lugarPokebolasConocidos = lugarPokebolasConocidos;
     }
 }

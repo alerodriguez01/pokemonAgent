@@ -8,12 +8,8 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
 import frsf.cidisi.faia.solver.search.DepthFirstSearch;
 import frsf.cidisi.faia.solver.search.Search;
-import structures.Lugar;
 import utilities.Utilities;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,12 +34,9 @@ public class PokemonAgent extends SearchBasedAgent {
         operators.addElement(new UsarAtaqueEspecial1());
         operators.addElement(new Pelear());
         operators.addElement(new ConsumirPokebola());
-
-        List<Lugar> lugaresMezclados = new ArrayList<>(pokemonAgentState.getLugares());
-        Collections.shuffle(lugaresMezclados);
-        for (Lugar lugar : lugaresMezclados) {
-            operators.addElement(new MoverseA(lugar));
-            operators.addElement(new EscaparA(lugar));
+        for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
+            operators.addElement(new MoverseA(i));
+            operators.addElement(new EscaparA(i));
         }
 
         // Crear el problema que resolvera el Pokemon

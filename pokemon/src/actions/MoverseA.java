@@ -7,13 +7,12 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
 import structures.Adversario;
-import structures.Lugar;
 
 public class MoverseA extends SearchAction {
 
-    private Lugar lugar;
+    private Integer lugar;
 
-    public MoverseA(Lugar lugar) {
+    public MoverseA(Integer lugar) {
         this.lugar = lugar;
     }
 
@@ -28,7 +27,7 @@ public class MoverseA extends SearchAction {
         Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(pokemonAgentState.getLugarActual());
 
         if(pokemonAgentState.getEnergiaActual() > 0 &&
-           pokemonAgentState.getLugarActual().getLugaresAdyacentes().contains(lugar) &&
+           pokemonAgentState.getLugares().get(pokemonAgentState.getLugarActual()).contains(lugar) &&
            adv == null){
 
             pokemonAgentState.setLugarActual(lugar);
@@ -58,7 +57,7 @@ public class MoverseA extends SearchAction {
         Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(pokemonAgentState.getLugarActual());
 
         if(pokemonAgentState.getEnergiaActual() > 0 &&
-                pokemonAgentState.getLugarActual().getLugaresAdyacentes().contains(lugar) &&
+                pokemonAgentState.getLugares().get(pokemonAgentState.getLugarActual()).contains(lugar) &&
                 adv == null){
 
             // Cambiamos estado agente

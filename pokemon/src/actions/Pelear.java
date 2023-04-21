@@ -28,7 +28,7 @@ public class Pelear extends SearchAction {
             pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual() - adv.getEnergia() + (int) Math.round(adv.getEnergia() * 0.2));
             pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
             // Mato al adversario
-            pokemonAgentState.getLugarPokemonesAdversariosConocidos().put(pokemonAgentState.getLugarActual(), null);
+            pokemonAgentState.getLugarPokemonesAdversariosConocidos().set(pokemonAgentState.getLugarActual(), null);
             if(adv.getEsMaestro()) pokemonAgentState.setMaestroFueDerrotado(true);
 
             return pokemonAgentState;
@@ -65,12 +65,11 @@ public class Pelear extends SearchAction {
             pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual() - adv.getEnergia() + (int) Math.round(adv.getEnergia() * 0.2));
             pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
             // Mato al adversario
-            pokemonAgentState.getLugarPokemonesAdversariosConocidos().put(pokemonAgentState.getLugarActual(), null);
+            pokemonAgentState.getLugarPokemonesAdversariosConocidos().set(pokemonAgentState.getLugarActual(), null);
             if(adv.getEsMaestro()) pokemonAgentState.setMaestroFueDerrotado(true);
 
             // Ambiente
-            environmentState.getLugarPokemonesAdversarios().put(environmentState.getLugarActualAgente(), null);
-            environmentState.getAdversarios().remove(adv);
+            environmentState.getAdversarios().set(environmentState.getLugarActualAgente(), null);
 
             return environmentState;
         }

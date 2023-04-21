@@ -28,7 +28,7 @@ public class UsarAtaqueEspecial3 extends SearchAction {
 
             pokemonAgentState.setEnergiaActual((int) Math.round(1.5 * pokemonAgentState.getEnergiaActual()));
             // Mato al adversario
-            pokemonAgentState.getLugarPokemonesAdversariosConocidos().put(pokemonAgentState.getLugarActual(), null);
+            pokemonAgentState.getLugarPokemonesAdversariosConocidos().set(pokemonAgentState.getLugarActual(), null);
             pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
             pokemonAgentState.setEnfriamientoAtaqueEspecial3(3);
 
@@ -67,13 +67,12 @@ public class UsarAtaqueEspecial3 extends SearchAction {
             // Agente
             pokemonAgentState.setEnergiaActual((int) Math.round(1.5 * pokemonAgentState.getEnergiaActual()));
             // Mato al adversario
-            pokemonAgentState.getLugarPokemonesAdversariosConocidos().put(pokemonAgentState.getLugarActual(), null);
+            pokemonAgentState.getLugarPokemonesAdversariosConocidos().set(pokemonAgentState.getLugarActual(), null);
             pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
             pokemonAgentState.setEnfriamientoAtaqueEspecial3(3);
 
             // Ambiente
-            environmentState.getLugarPokemonesAdversarios().put(environmentState.getLugarActualAgente(), null);
-            environmentState.getAdversarios().remove(adv);
+            environmentState.getAdversarios().set(environmentState.getLugarActualAgente(), null);
 
             return environmentState;
         }

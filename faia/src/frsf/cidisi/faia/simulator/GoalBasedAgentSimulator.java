@@ -26,6 +26,7 @@ import frsf.cidisi.faia.agent.GoalBasedAgent;
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Action;
 import frsf.cidisi.faia.agent.Perception;
+import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.environment.Environment;
 import frsf.cidisi.faia.simulator.events.EventType;
 import frsf.cidisi.faia.simulator.events.SimulatorEventNotifier;

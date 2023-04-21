@@ -6,7 +6,7 @@ import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
 import structures.Adversario;
-import structures.Lugar;
+import utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +15,8 @@ import java.util.Map;
 
 public class PokemonPerception extends Perception {
 
-    private Map<Lugar, Adversario> lugarPokemonesAdversariosAdyacentes;
-    private Map<Lugar, Boolean> lugarPokebolasAdyacentes;
+    private Map<Integer, Adversario> lugarPokemonesAdversariosAdyacentes;
+    private Map<Integer, Boolean> lugarPokebolasAdyacentes;
 
     public PokemonPerception(){
         lugarPokemonesAdversariosAdyacentes = new HashMap<>();
@@ -36,18 +36,18 @@ public class PokemonPerception extends Perception {
         PokemonEnvironment amb = (PokemonEnvironment) environment;
         PokemonEnvironmentState estadoAmb = amb.getEnvironmentState();
 
-        Lugar lugarAgente = estadoAmb.getlugarActualAgente();
-        List<Lugar> adyacencias = new ArrayList<>(lugarAgente.getLugaresAdyacentes());
+        Integer lugarAgente = estadoAmb.getLugarActualAgente();
+        List<Integer> adyacencias = new ArrayList<>(estadoAmb.getLugares().get(lugarAgente));
         adyacencias.add(lugarAgente);
 
-        Map<Lugar, Adversario> lugarPokemonesAdversarios = estadoAmb.getLugarPokemonesAdversarios();
-        for (Lugar lugarAdy: adyacencias) {
+        List<Adversario> lugarPokemonesAdversarios = estadoAmb.getAdversarios();
+        for (Integer lugarAdy: adyacencias) {
             Adversario adv = lugarPokemonesAdversarios.get(lugarAdy);
             lugarPokemonesAdversariosAdyacentes.put(lugarAdy, adv);
         }
 
-        Map<Lugar, Boolean> lugarPokebolas = estadoAmb.getLugarPokebolas();
-        for (Lugar lugarAdy: adyacencias) {
+        List<Boolean> lugarPokebolas = estadoAmb.getLugarPokebolas();
+        for (Integer lugarAdy: adyacencias) {
             lugarPokebolasAdyacentes.put(lugarAdy, lugarPokebolas.get(lugarAdy));
         }
 
@@ -55,8 +55,10 @@ public class PokemonPerception extends Perception {
 
     public void satelitePerception(Environment environment){
         PokemonEnvironment amb = (PokemonEnvironment) environment;
-        lugarPokebolasAdyacentes = amb.getEnvironmentState().getLugarPokebolas();
-        lugarPokemonesAdversariosAdyacentes = amb.getEnvironmentState().getLugarPokemonesAdversarios();
+        for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
+            lugarPokebolasAdyacentes.put(i, amb.getEnvironmentState().getLugarPokebolas().get(i));
+            lugarPokemonesAdversariosAdyacentes.put(i, amb.getEnvironmentState().getAdversarios().get(i));
+        }
     }
 
     @Override
@@ -67,35 +69,19 @@ public class PokemonPerception extends Perception {
                 '}';
     }
 
-    /**
-     * Metodo para representar como string la percepcion.
-     */
-    /*
-    @Override
-    public String toString() {
-        String str = "";
-        for (var par: lugarPokemonesAdversariosAdyacentes.entrySet()) {
-            str += "/n" + par.getKey().toString() + " : " + par.getValue() == null ? "no hay enemigo" : par.getValue().toString() +
-                    ", pokebola: " + lugarPokebolasAdyacentes.get(par.getKey());
-        }
-        return str;
-    }*/
-
-
-
-    public Map<Lugar, Adversario> getLugarPokemonesAdversariosAdyacentes() {
+    public Map<Integer, Adversario> getLugarPokemonesAdversariosAdyacentes() {
         return lugarPokemonesAdversariosAdyacentes;
     }
 
-    public void setLugarPokemonesAdversariosAdyacentes(Map<Lugar, Adversario> lugarPokemonesAdversariosAdyacentes) {
+    public void setLugarPokemonesAdversariosAdyacentes(Map<Integer, Adversario> lugarPokemonesAdversariosAdyacentes) {
         this.lugarPokemonesAdversariosAdyacentes = lugarPokemonesAdversariosAdyacentes;
     }
 
-    public Map<Lugar, Boolean> getLugarPokebolasAdyacentes() {
+    public Map<Integer, Boolean> getLugarPokebolasAdyacentes() {
         return lugarPokebolasAdyacentes;
     }
 
-    public void setLugarPokebolasAdyacentes(Map<Lugar, Boolean> lugarPokebolasAdyacentes) {
+    public void setLugarPokebolasAdyacentes(Map<Integer, Boolean> lugarPokebolasAdyacentes) {
         this.lugarPokebolasAdyacentes = lugarPokebolasAdyacentes;
     }
 }

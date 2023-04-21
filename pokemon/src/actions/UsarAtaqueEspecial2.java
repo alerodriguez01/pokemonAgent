@@ -68,7 +68,7 @@ public class UsarAtaqueEspecial2 extends SearchAction {
             pokemonAgentState.setEnfriamientoAtaqueEspecial2(3);
 
             // Ambiente
-            Adversario advAmbiente = environmentState.getLugarPokemonesAdversarios().get(environmentState.getLugarActualAgente());
+            Adversario advAmbiente = environmentState.getAdversarios().get(environmentState.getLugarActualAgente());
             advAmbiente.setEnergia(auxEnergia);
 
             return environmentState;

@@ -1,9 +1,7 @@
 package environment;
 
 import frsf.cidisi.faia.state.EnvironmentState;
-import jdk.jshell.execution.Util;
 import structures.Adversario;
-import structures.Lugar;
 import utilities.Utilities;
 
 import java.util.*;
@@ -11,12 +9,11 @@ import java.util.*;
 public class PokemonEnvironmentState extends EnvironmentState {
 
     // Atributos del mundo real
-    private int energiaAgente;
-    private Lugar lugarActualAgente;
-    private List<Lugar> lugares;
+    private Integer energiaAgente;
+    private Integer lugarActualAgente;
+    private List<List<Integer>> lugares;
     private List<Adversario> adversarios;
-    private Map<Lugar, Adversario> lugarPokemonesAdversarios;
-    private Map<Lugar, Boolean> lugarPokebolas;
+    private  List<Boolean> lugarPokebolas;
 
     private final int CANT_LUGARES = Utilities.CANT_LUGARES;
     private final int CANT_ADVERSARIOS = Utilities.CANT_ADVERSARIOS;
@@ -33,7 +30,7 @@ public class PokemonEnvironmentState extends EnvironmentState {
     public void initState() {
         // Setea todos los lugares y el lugar actual del agente
         lugares = Utilities.crearMapa();
-        lugarActualAgente = lugares.get(Utilities.getPosInicialAgente());
+        lugarActualAgente = Utilities.getPosInicialAgente();
         // Setea cada lugar con sus pokebolas
         crearPokebolas();
         // Setea cada lugar con su adversario
@@ -42,9 +39,9 @@ public class PokemonEnvironmentState extends EnvironmentState {
     }
 
     private void crearPokebolas() {
-        lugarPokebolas = new HashMap<>();
-        for (Lugar lugar: lugares) {
-            lugarPokebolas.put(lugar, false);
+        lugarPokebolas = new ArrayList<>();
+        for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
+            lugarPokebolas.add(false);
         }
         Random lugarRandom = new Random();
         int valorRandom;
@@ -55,7 +52,7 @@ public class PokemonEnvironmentState extends EnvironmentState {
         while(i > 0) {
             valorRandom = lugarRandom.nextInt(CANT_LUGARES);
             if(!lugaresVistos.contains(valorRandom)){
-                lugarPokebolas.put(lugares.get(valorRandom), true);
+                lugarPokebolas.set(valorRandom, true);
                 lugaresVistos.add(valorRandom);
                 i--;
             }
@@ -63,32 +60,29 @@ public class PokemonEnvironmentState extends EnvironmentState {
     }
 
     private void crearAdversarios() {
-        lugarPokemonesAdversarios = new HashMap<>();
+
         adversarios = new ArrayList<>();
 
         List<Integer> idLugaresAdvComunes = distribuirAdversarios();
-        //List<Integer> idLugaresAdvComunes = Arrays.asList(3, 4, 5, 6, 10, 15, 25);
 
         Random random = new Random();
         int varianza;
 
         int idAdv = 0;
         Adversario advComun;
-        for (Lugar lugar: lugares) {
-            if (idLugaresAdvComunes.contains(lugar.getId())) {
+        for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
+            if (idLugaresAdvComunes.contains(i)) {
                 // La energia del adversario es 15 +- 5
                 varianza = (int) Math.pow(-1,random.nextInt(2)) * random.nextInt(VARIANZA_ENERGIA_ADVERSARIOS+1);
                 advComun = new Adversario(idAdv, MEDIA_ENERGIA_ADVERSARIOS+varianza, false);
-                lugarPokemonesAdversarios.put(lugar, advComun);
                 adversarios.add(advComun);
                 idAdv++;
             } else
-                lugarPokemonesAdversarios.put(lugar, null);
+                adversarios.add(null);
         }
         // Agregar al maestro
         Adversario maestro = new Adversario(idAdv, 100, true);
-        lugarPokemonesAdversarios.put(lugares.get(ID_LUGAR_MAESTRO), maestro);
-        adversarios.add(maestro);
+        adversarios.set(ID_LUGAR_MAESTRO, maestro);
     }
 
     private List<Integer> distribuirAdversarios() {
@@ -98,7 +92,7 @@ public class PokemonEnvironmentState extends EnvironmentState {
         int valorRandom;
         List<Integer> lugaresOcupados = new ArrayList<>();
         for (int i = 0; i < lugarPokebolas.size(); i++) {
-            if(lugarPokebolas.get(lugares.get(i)) == true) lugaresOcupados.add(i);
+            if(lugarPokebolas.get(i) == true) lugaresOcupados.add(i);
         }
         lugaresOcupados.add(Utilities.ID_LUGAR_MAESTRO);
 
@@ -120,18 +114,13 @@ public class PokemonEnvironmentState extends EnvironmentState {
      */
     @Override
     public String toString() {
-        String str = "\nAgente: " + lugarActualAgente.toString() + "\n";
-        for (Lugar lugar: lugares) {
-            Adversario adv = lugarPokemonesAdversarios.get(lugar);
-            if(adv != null)
-                str += "\n" + lugar.toString() + ": " + adv.toString();
-            else
-                str += "\n" + lugar.toString() + ": sin adversario";
-
-            str += "; hayPokebola: " + lugarPokebolas.get(lugar);
-        }
-
-        return str;
+        return "PokemonEnvironmentState{" +
+                "energiaAgente=" + energiaAgente +
+                ", lugarActualAgente=" + lugarActualAgente +
+                ", lugares=" + lugares +
+                ", adversarios=" + adversarios +
+                ", lugarPokebolas=" + lugarPokebolas +
+                '}';
     }
 
     /**
@@ -141,43 +130,41 @@ public class PokemonEnvironmentState extends EnvironmentState {
         return energiaAgente;
     }
 
-    public Lugar getlugarActualAgente() {
-        return lugarActualAgente;
-    }
-
-    public Map<Lugar, Adversario> getLugarPokemonesAdversarios() {
-        return lugarPokemonesAdversarios;
-    }
-
-    public Map<Lugar, Boolean> getLugarPokebolas() {
-        return lugarPokebolas;
-    }
-
     public List<Adversario> getAdversarios() {
         return adversarios;
     }
 
-    public List<Lugar> getLugares() {
-        return lugares;
-    }
+
 
     public void setEnergiaAgente(int energiaAgente) {
         this.energiaAgente = energiaAgente;
     }
 
-    public Lugar getLugarActualAgente() {
+    public void setEnergiaAgente(Integer energiaAgente) {
+        this.energiaAgente = energiaAgente;
+    }
+
+    public Integer getLugarActualAgente() {
         return lugarActualAgente;
     }
 
-    public void setLugarActualAgente(Lugar lugarActualAgente) {
+    public void setLugarActualAgente(Integer lugarActualAgente) {
         this.lugarActualAgente = lugarActualAgente;
     }
 
-    public void setLugarPokemonesAdversarios(Map<Lugar, Adversario> lugarPokemonesAdversarios) {
-        this.lugarPokemonesAdversarios = lugarPokemonesAdversarios;
+    public List<List<Integer>> getLugares() {
+        return lugares;
     }
 
-    public void setLugarPokebolas(Map<Lugar, Boolean> lugarPokebolas) {
+    public void setLugares(List<List<Integer>> lugares) {
+        this.lugares = lugares;
+    }
+
+    public List<Boolean> getLugarPokebolas() {
+        return lugarPokebolas;
+    }
+
+    public void setLugarPokebolas(List<Boolean> lugarPokebolas) {
         this.lugarPokebolas = lugarPokebolas;
     }
 

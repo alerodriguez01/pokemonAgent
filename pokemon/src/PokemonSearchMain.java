@@ -1,4 +1,5 @@
 import agent.PokemonAgent;
+import agent.PokemonAgentState;
 import frsf.cidisi.faia.simulator.SearchBasedAgentSimulator;
 import environment.PokemonEnvironment;
 
