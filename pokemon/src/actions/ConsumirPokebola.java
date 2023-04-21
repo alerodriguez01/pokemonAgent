@@ -73,6 +73,6 @@ public class ConsumirPokebola extends SearchAction {
 
     @Override
     public String toString() {
-        return "Pokebola consumida";
+        return "Consumir pokebola";
     }
 }

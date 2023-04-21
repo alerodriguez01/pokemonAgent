@@ -25,7 +25,7 @@ public class EscaparA extends SearchAction {
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
         PokemonAgentState pokemonAgentState = (PokemonAgentState) s;
 
-        Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(lugar);
+        Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(pokemonAgentState.getLugarActual());
 
         if(pokemonAgentState.getEnergiaActual() > 0 &&
                 pokemonAgentState.getLugarActual().getLugaresAdyacentes().contains(lugar) &&
@@ -57,7 +57,7 @@ public class EscaparA extends SearchAction {
         PokemonEnvironmentState environmentState = (PokemonEnvironmentState) est;
         PokemonAgentState pokemonAgentState = (PokemonAgentState) ast;
 
-        Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(lugar);
+        Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(pokemonAgentState.getLugarActual());
 
         if(pokemonAgentState.getEnergiaActual() > 0 &&
                 pokemonAgentState.getLugarActual().getLugaresAdyacentes().contains(lugar) &&

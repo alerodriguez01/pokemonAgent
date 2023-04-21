@@ -72,7 +72,7 @@ public class PokemonEnvironment extends Environment {
         super.updateState(ast, action);
 
         // Mover adversarios
-        moverAdversarios(getEnvironmentState().getlugarActualAgente(), null); // Metodo 1
+        //moverAdversarios(getEnvironmentState().getlugarActualAgente(), null); // Metodo 1
 
         this.moverAdversarios2(); // Metodo 2
     }

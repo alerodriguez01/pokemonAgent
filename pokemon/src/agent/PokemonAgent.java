@@ -11,6 +11,9 @@ import frsf.cidisi.faia.solver.search.Search;
 import structures.Lugar;
 import utilities.Utilities;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,20 +28,23 @@ public class PokemonAgent extends SearchBasedAgent {
         PokemonAgentState pokemonAgentState = new PokemonAgentState();
         this.setAgentState(pokemonAgentState);
 
-        // Crear los operadores
+        // Crear los operadores (atencion al orden)
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        operators.addElement(new ConsumirPokebola());
         operators.addElement(new HabilitarAtaqueEspecial1());
         operators.addElement(new HabilitarAtaqueEspecial2());
         operators.addElement(new HabilitarAtaqueEspecial3());
-        for (Lugar lugar : pokemonAgentState.getLugares()) {
+        operators.addElement(new UsarAtaqueEspecial3());
+        operators.addElement(new UsarAtaqueEspecial2());
+        operators.addElement(new UsarAtaqueEspecial1());
+        operators.addElement(new Pelear());
+        operators.addElement(new ConsumirPokebola());
+
+        List<Lugar> lugaresMezclados = new ArrayList<>(pokemonAgentState.getLugares());
+        Collections.shuffle(lugaresMezclados);
+        for (Lugar lugar : lugaresMezclados) {
             operators.addElement(new MoverseA(lugar));
             operators.addElement(new EscaparA(lugar));
         }
-        operators.addElement(new Pelear());
-        operators.addElement(new UsarAtaqueEspecial1());
-        operators.addElement(new UsarAtaqueEspecial2());
-        operators.addElement(new UsarAtaqueEspecial3());
 
         // Crear el problema que resolvera el Pokemon
         Problem problem = new Problem(goal, pokemonAgentState, operators);
@@ -91,7 +97,7 @@ public class PokemonAgent extends SearchBasedAgent {
 
         /* Generate an XML file with the search tree. It can also be generated
          * in other formats like PDF with PDF_TREE */
-        searchSolver.setVisibleTree(Search.EFAIA_TREE);
+        searchSolver.setVisibleTree(Search.WHITHOUT_TREE);
 
         // Set the Search searchSolver.
         this.setSolver(searchSolver);

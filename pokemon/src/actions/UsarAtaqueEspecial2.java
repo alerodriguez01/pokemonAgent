@@ -79,6 +79,6 @@ public class UsarAtaqueEspecial2 extends SearchAction {
 
     @Override
     public String toString() {
-        return "Ataque especial 2 usado";
+        return "Usar ataque especial 2";
     }
 }

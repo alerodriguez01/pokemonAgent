@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Utilities {
-    public static final int CANT_LUGARES = 29;
-    public static final int ID_LUGAR_MAESTRO = 21;
-    public static final int CANT_ADVERSARIOS = 15;
+    public static final int CANT_LUGARES = 8;//29;
+    public static final int ID_LUGAR_MAESTRO = 6;//21;
+    public static final int CANT_ADVERSARIOS = 3;//15; // Sin incluir al maestro
+    public static final int CANT_POKEBOLAS = 2;//5;
     private static int idLugarInicialAgente = -1;
     private static int energiaInicialAgente = -1;
 
@@ -25,6 +26,8 @@ public class Utilities {
         List<List<Lugar>> adyacencias = new ArrayList<>();
 
         // TODO: hacer matriz de adyacencias mejor?
+
+        /* Mapa completo
 
         // Lugar 0
         adyacencias.add(Arrays.asList(lugares.get(1)));
@@ -85,6 +88,29 @@ public class Utilities {
         // Lugar 28
         adyacencias.add(Arrays.asList(lugares.get(26), lugares.get(27)));
 
+  */
+
+/*
+        Mapa auxiliar
+*/
+        // Lugar 0
+        adyacencias.add(Arrays.asList(lugares.get(1)));
+        // Lugar 1
+        adyacencias.add(Arrays.asList(lugares.get(0), lugares.get(2)));
+        // Lugar 2
+        adyacencias.add(Arrays.asList(lugares.get(1), lugares.get(7), lugares.get(3)));
+        // Lugar 3
+        adyacencias.add(Arrays.asList(lugares.get(2), lugares.get(6), lugares.get(4)));
+        // Lugar 4
+        adyacencias.add(Arrays.asList(lugares.get(3), lugares.get(5)));
+        // Lugar 5
+        adyacencias.add(Arrays.asList(lugares.get(4), lugares.get(6)));
+        // Lugar 6
+        adyacencias.add(Arrays.asList(lugares.get(5), lugares.get(3)));
+        // Lugar 7
+        adyacencias.add(Arrays.asList(lugares.get(2)));
+
+
         // Seteo de adyacencias
         for (int i = 0; i < CANT_LUGARES; i++) {
             lugares.get(i).setLugaresAdyacentes(adyacencias.get(i));
@@ -100,7 +126,7 @@ public class Utilities {
                 lugar = random.nextInt(Utilities.CANT_LUGARES);
             }while (lugar == Utilities.ID_LUGAR_MAESTRO);
         }
-        return lugar;
+        return 5;
     }
     public static int getEnergiaInicialAgente(){
         Random random = new Random();
@@ -110,6 +136,7 @@ public class Utilities {
                 energia = random.nextInt(Utilities.CANT_LUGARES);
             }while (energia == Utilities.ID_LUGAR_MAESTRO);
         }
-        return energia;
+        return 1000;
     }
+
 }

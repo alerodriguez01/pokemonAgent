@@ -1,6 +1,7 @@
 package environment;
 
 import frsf.cidisi.faia.state.EnvironmentState;
+import jdk.jshell.execution.Util;
 import structures.Adversario;
 import structures.Lugar;
 import utilities.Utilities;
@@ -21,7 +22,7 @@ public class PokemonEnvironmentState extends EnvironmentState {
     private final int CANT_ADVERSARIOS = Utilities.CANT_ADVERSARIOS;
     private final int MEDIA_ENERGIA_ADVERSARIOS = 15;
     private final int VARIANZA_ENERGIA_ADVERSARIOS = 5;
-    private final int CANT_POKEBOLAS = 5;
+    private final int CANT_POKEBOLAS = Utilities.CANT_POKEBOLAS;
     private final int ID_LUGAR_MAESTRO = Utilities.ID_LUGAR_MAESTRO;
 
 
@@ -99,7 +100,7 @@ public class PokemonEnvironmentState extends EnvironmentState {
         for (int i = 0; i < lugarPokebolas.size(); i++) {
             if(lugarPokebolas.get(lugares.get(i)) == true) lugaresOcupados.add(i);
         }
-
+        lugaresOcupados.add(Utilities.ID_LUGAR_MAESTRO);
 
         int i = CANT_ADVERSARIOS;
         while(i > 0) {

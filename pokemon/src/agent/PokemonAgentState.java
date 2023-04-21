@@ -46,7 +46,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
                 state.getEnergiaInicial() == this.energiaInicial &&
                 state.getEnergiaActual() == this.energiaActual &&
                 state.getEnfriamientoAtaqueEspecial() == this.enfriamientoAtaqueEspecial &&
-                state.getAtaqueEspecialFueHabiltado() == this.getAtaqueEspecialFueHabiltado() &&
+                state.getAtaqueEspecialFueHabiltado() == this.ataqueEspecialFueHabiltado &&
                 state.isMaestroFueDerrotado() == this.maestroFueDerrotado;
     }
 
@@ -64,7 +64,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
         nuevoEstado.setCantidadPokemonesAdversarios(this.getCantidadPokemonesAdversarios());
         nuevoEstado.setEnfriamientoAtaqueEspecial(this.getEnfriamientoAtaqueEspecial());
         nuevoEstado.setMaestroFueDerrotado(this.isMaestroFueDerrotado());
-        nuevoEstado.setLugarActual(lugarActual);
+        nuevoEstado.setLugarActual(this.getLugarActual()); // No interesa pasar el mismo Lugar, ninguna accion lo modifica
         nuevoEstado.setLugarPokebolasConocidos(new HashMap<>(this.getLugarPokebolasConocidos()));
         nuevoEstado.setLugarPokemonesAdversariosConocidos(new HashMap<>(this.getLugarPokemonesAdversariosConocidos()));
         return nuevoEstado;
@@ -79,21 +79,28 @@ public class PokemonAgentState extends SearchBasedAgentState {
         PokemonPerception perception = (PokemonPerception) p;
         Adversario adv;
 
-        for (var par: perception.getLugarPokebolasAdyacentes().entrySet()) {
-            lugarPokebolasConocidos.put(par.getKey(), par.getValue());
-        }
-        // ver de cambiar, poco performante
-        for (var par: perception.getLugarPokemonesAdversariosAdyacentes().entrySet()) {
-            // Busco si el enemigo esta en mi lista de enemigos concidos, y lo saco
-            for (Lugar lugar: lugarPokemonesAdversariosConocidos.keySet()) {
-                adv = lugarPokemonesAdversariosConocidos.get(lugar);
-                if(adv != null && adv.equals(par.getValue())) {
-                    lugarPokemonesAdversariosConocidos.put(lugar, null);
-                    break;
-                }
+        // Si la percepcion contiene todos los lugares, quiere decir que es el satelite
+        if(((PokemonPerception) p).getLugarPokemonesAdversariosAdyacentes().size() == Utilities.CANT_LUGARES){
+            // Directamente asigno las copias de la percepcion
+            lugarPokemonesAdversariosConocidos = new HashMap<>(((PokemonPerception) p).getLugarPokemonesAdversariosAdyacentes());
+            lugarPokebolasConocidos = new HashMap<>(((PokemonPerception) p).getLugarPokebolasAdyacentes());
+        }else { // sino, asigno segun las adyacencias enviadas
+            for (var par: perception.getLugarPokebolasAdyacentes().entrySet()) {
+                lugarPokebolasConocidos.put(par.getKey(), par.getValue());
             }
-            // Lo agrego en el nuevo lugar
-            lugarPokemonesAdversariosConocidos.put(par.getKey(), par.getValue());
+            // ver de cambiar, poco performante
+            for (var par: perception.getLugarPokemonesAdversariosAdyacentes().entrySet()) {
+                // Busco si el enemigo esta en mi lista de enemigos concidos, y lo saco
+                for (Lugar lugar: lugarPokemonesAdversariosConocidos.keySet()) {
+                    adv = lugarPokemonesAdversariosConocidos.get(lugar);
+                    if(adv != null && adv.equals(par.getValue())) {
+                        lugarPokemonesAdversariosConocidos.put(lugar, null);
+                        break;
+                    }
+                }
+                // Lo agrego en el nuevo lugar
+                lugarPokemonesAdversariosConocidos.put(par.getKey(), par.getValue());
+            }
         }
 
     }
@@ -112,7 +119,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
         lugarPokebolasConocidos = new HashMap<>();
         for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
             lugarPokemonesAdversariosConocidos.put(lugares.get(i), null);
-            lugarPokebolasConocidos.put(lugares.get(i), null);
+            lugarPokebolasConocidos.put(lugares.get(i), false);
         }
         energiaInicial = Utilities.getEnergiaInicialAgente();
         energiaActual = Utilities.getEnergiaInicialAgente();
