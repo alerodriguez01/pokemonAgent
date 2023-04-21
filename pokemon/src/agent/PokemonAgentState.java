@@ -39,13 +39,17 @@ public class PokemonAgentState extends SearchBasedAgentState {
     public boolean equals(Object obj) {
         PokemonAgentState state = (PokemonAgentState) obj;
         return state.getLugarActual().equals(this.lugarActual) &&
-                state.getCantidadPokemonesAdversarios() == this.cantidadPokemonesAdversarios &&
+                state.getCantidadPokemonesAdversarios().equals(this.cantidadPokemonesAdversarios) &&
                 state.getLugarPokemonesAdversariosConocidos().equals(this.lugarPokemonesAdversariosConocidos) &&
                 state.getLugarPokebolasConocidos().equals(this.lugarPokebolasConocidos) &&
-                state.getEnergiaInicial() == this.energiaInicial &&
-                state.getEnergiaActual() == this.energiaActual &&
-                state.getEnfriamientoAtaqueEspecial() == this.enfriamientoAtaqueEspecial &&
-                state.getAtaqueEspecialFueHabiltado() == this.ataqueEspecialFueHabiltado &&
+                state.getEnergiaInicial().equals(this.energiaInicial) &&
+                state.getEnergiaActual().equals(this.energiaActual) &&
+                state.getEnfriamientoAtaqueEspecial()[0].equals(this.enfriamientoAtaqueEspecial[0]) &&
+                state.getEnfriamientoAtaqueEspecial()[1].equals(this.enfriamientoAtaqueEspecial[1]) &&
+                state.getEnfriamientoAtaqueEspecial()[2].equals(this.enfriamientoAtaqueEspecial[2]) &&
+                state.getAtaqueEspecialFueHabiltado()[0] == this.ataqueEspecialFueHabiltado[0] &&
+                state.getAtaqueEspecialFueHabiltado()[1] == this.ataqueEspecialFueHabiltado[1] &&
+                state.getAtaqueEspecialFueHabiltado()[2] == this.ataqueEspecialFueHabiltado[2] &&
                 state.isMaestroFueDerrotado() == this.maestroFueDerrotado;
     }
 
@@ -57,11 +61,11 @@ public class PokemonAgentState extends SearchBasedAgentState {
     @Override
     public SearchBasedAgentState clone() {
         PokemonAgentState nuevoEstado = new PokemonAgentState();
-        nuevoEstado.setEnergiaActual(Integer.valueOf((int)this.getEnergiaActual()));
+        nuevoEstado.setEnergiaActual(this.getEnergiaActual());
         nuevoEstado.setEnergiaInicial(this.getEnergiaInicial());
-        nuevoEstado.setAtaqueEspecialFueHabiltado(this.getAtaqueEspecialFueHabiltado());
+        nuevoEstado.setAtaqueEspecialFueHabiltado(this.getAtaqueEspecialFueHabiltado().clone());
         nuevoEstado.setCantidadPokemonesAdversarios(this.getCantidadPokemonesAdversarios());
-        nuevoEstado.setEnfriamientoAtaqueEspecial(this.getEnfriamientoAtaqueEspecial());
+        nuevoEstado.setEnfriamientoAtaqueEspecial(this.getEnfriamientoAtaqueEspecial().clone());
         nuevoEstado.setMaestroFueDerrotado(this.isMaestroFueDerrotado());
         nuevoEstado.setLugarActual(this.getLugarActual());
         nuevoEstado.setLugarPokebolasConocidos(new ArrayList<>(this.getLugarPokebolasConocidos()));
