@@ -10,7 +10,7 @@ public class Utilities {
     public static final int ID_LUGAR_MAESTRO = 4;//21;
     public static final int CANT_ADVERSARIOS = 1;//15; // Sin incluir al maestro
     public static final int CANT_POKEBOLAS = 1;//5;
-    private static int idLugarInicialAgente = 1;//-1;
+    private static int idLugarInicialAgente = -1;//-1;
     private static int energiaInicialAgente = 1000;//-1;
 
     public static List<List<Integer>> crearMapa(){
@@ -96,14 +96,18 @@ public class Utilities {
         return lugares;
     }
     public static int getPosInicialAgente(){
-        Random random = new Random();
-        int lugar = idLugarInicialAgente;
-        if(lugar == -1){
+
+        //idLugarInicialAgente = 1;
+        if( idLugarInicialAgente == -1){
+            Random random = new Random();
+            int lugar;
             do{
                 lugar = random.nextInt(Utilities.CANT_LUGARES);
             }while (lugar == Utilities.ID_LUGAR_MAESTRO);
+
+            idLugarInicialAgente = lugar;
         }
-        return lugar;
+        return idLugarInicialAgente;
     }
     public static int getEnergiaInicialAgente(){
         Random random = new Random();
