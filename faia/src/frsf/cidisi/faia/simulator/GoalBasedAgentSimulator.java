@@ -128,6 +128,10 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
                     pokemonAgentState.setEnfriamientoAtaqueEspecial3(pokemonAgentState.getEnfriamientoAtaqueEspecial()[2]-1);
             }
 
+            // Necesario para no sugerir siempre el moverse a y escapar a en un orden especifico.
+            // Evita entrar en un bucle.
+            pokemonAgent.mezclarOperadores();
+
         } while (!this.agentSucceeded(action) && !this.agentFailed(action));
 
         // Check what happened, if agent has reached the goal or not.

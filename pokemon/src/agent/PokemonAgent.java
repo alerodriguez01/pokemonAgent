@@ -10,6 +10,9 @@ import frsf.cidisi.faia.solver.search.DepthFirstSearch;
 import frsf.cidisi.faia.solver.search.Search;
 import utilities.Utilities;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +45,26 @@ public class PokemonAgent extends SearchBasedAgent {
         // Crear el problema que resolvera el Pokemon
         Problem problem = new Problem(goal, pokemonAgentState, operators);
         this.setProblem(problem);
+    }
+
+    public void mezclarOperadores(){
+        Vector<SearchAction> operators = new Vector<SearchAction>();
+        operators.addElement(new HabilitarAtaqueEspecial1());
+        operators.addElement(new HabilitarAtaqueEspecial2());
+        operators.addElement(new HabilitarAtaqueEspecial3());
+        operators.addElement(new UsarAtaqueEspecial3());
+        operators.addElement(new UsarAtaqueEspecial2());
+        operators.addElement(new UsarAtaqueEspecial1());
+        operators.addElement(new Pelear());
+        operators.addElement(new ConsumirPokebola());
+        List<Integer> posiciones = new ArrayList<>();
+        for (int i = 0; i < Utilities.CANT_LUGARES; i++) posiciones.add(i);
+        Collections.shuffle(posiciones);
+        for (int i = 0; i < Utilities.CANT_LUGARES; i++){
+            operators.addElement(new MoverseA(posiciones.get(i)));
+            operators.addElement(new EscaparA(posiciones.get(i)));
+        }
+        this.getProblem().setActions(operators);
     }
 
     /**
