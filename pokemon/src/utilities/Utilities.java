@@ -79,7 +79,6 @@ public class Utilities {
         // Lugar 28
         lugares.add(Arrays.asList(26,27));
 
-
 /*
         // Lugar 0
         lugares.add(Arrays.asList(1));
