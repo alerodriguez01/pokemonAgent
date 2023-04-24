@@ -54,11 +54,14 @@ public class PokemonEnvironment extends Environment {
 
         PokemonEnvironmentState pokemonEnvironmentState = this.getEnvironmentState();
 
-        int agentEnergy = pokemonEnvironmentState.getEnergiaAgente();
+        int agentEnergy;
 
-        // si el agente no tiene energia, ha fallado.
-        if (agentEnergy <= 0)
-            return true;
+        if(actionReturned != null){
+          agentEnergy = pokemonEnvironmentState.getEnergiaAgente();
+            // si el agente no tiene energia, ha fallado.
+          if (agentEnergy <= 0)
+                return true;
+        }
 
         return false;
     }
