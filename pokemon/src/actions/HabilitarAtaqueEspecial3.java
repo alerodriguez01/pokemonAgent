@@ -17,7 +17,8 @@ public class HabilitarAtaqueEspecial3 extends SearchAction {
         PokemonAgentState pokemonAgentState = (PokemonAgentState) s;
 
         if(pokemonAgentState.getEnergiaActual() > 0 &&
-           pokemonAgentState.getEnergiaActual() >= 2.20 * pokemonAgentState.getEnergiaInicial()) {
+           pokemonAgentState.getEnergiaActual() >= 2.20 * pokemonAgentState.getEnergiaInicial() &&
+                !pokemonAgentState.getAtaqueEspecialFueHabiltado()[2]) {
             pokemonAgentState.setAtaqueEspecial3FueHabiltado();
             return pokemonAgentState;
         }
@@ -43,7 +44,8 @@ public class HabilitarAtaqueEspecial3 extends SearchAction {
         PokemonAgentState pokemonAgentState = (PokemonAgentState) ast;
 
         if(pokemonAgentState.getEnergiaActual() > 0 &&
-           pokemonAgentState.getEnergiaActual() >= 2.20 * pokemonAgentState.getEnergiaInicial()) {
+           pokemonAgentState.getEnergiaActual() >= 2.20 * pokemonAgentState.getEnergiaInicial() &&
+                !pokemonAgentState.getAtaqueEspecialFueHabiltado()[2]) {
             // Actualiza el estado del pokemon
             pokemonAgentState.setAtaqueEspecial3FueHabiltado();
             // Y en esta accion, el ambiente no se modifica
