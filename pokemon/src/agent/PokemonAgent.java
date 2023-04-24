@@ -41,7 +41,6 @@ public class PokemonAgent extends SearchBasedAgent {
             operators.addElement(new MoverseA(i));
             operators.addElement(new EscaparA(i));
         }
-        operators.addElement(new Rendirse());
         // Crear el problema que resolvera el Pokemon
         Problem problem = new Problem(goal, pokemonAgentState, operators);
         this.setProblem(problem);
@@ -64,7 +63,6 @@ public class PokemonAgent extends SearchBasedAgent {
             operators.addElement(new MoverseA(posiciones.get(i)));
             operators.addElement(new EscaparA(posiciones.get(i)));
         }
-        operators.addElement(new Rendirse());
         this.getProblem().setActions(operators);
     }
 
