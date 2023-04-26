@@ -76,18 +76,22 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
             System.out.println("------------------------------------");
 
-            System.out.println("Sending perception to agent...");
-            perception = this.getPercept();
-            agent.see(perception);
-            System.out.println("Perception: " + perception);
-
-            // Uso de satelite
+            // Uso de satelite perception
             if(enfriamientoSatelite == 0){
+
                 enfriamientoSatelite = 5 + random.nextInt(6);
+                System.out.println("Sending satelite perception to agent...");
                 perception = this.getSatelitePercept();
                 agent.see(perception);
                 System.out.println("Satelite perception: " + perception);
-            } else enfriamientoSatelite--;
+
+            } else{ // Perception normal
+                enfriamientoSatelite--;
+                System.out.println("Sending perception to agent...");
+                perception = this.getPercept();
+                agent.see(perception);
+                System.out.println("Perception: " + perception);
+            }
 
             System.out.println("Agent State: " + agent.getAgentState());
             System.out.println("Environment: " + environment);
@@ -104,28 +108,17 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
             this.actionReturned(agent, action);
 
+
             PokemonAgent pokemonAgent = (PokemonAgent) agent;
             PokemonAgentState pokemonAgentState = (PokemonAgentState) pokemonAgent.getAgentState();
-            // Enfriamiento ataque especial 1
-            if(pokemonAgentState.getAtaqueEspecialFueHabiltado()[0]){
-                if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[0] == 0)
-                    pokemonAgentState.setEnfriamientoAtaqueEspecial1(3);
-                else
-                    pokemonAgentState.setEnfriamientoAtaqueEspecial1(pokemonAgentState.getEnfriamientoAtaqueEspecial()[0]-1);
-            }
-            // Enfriamiento ataque especial 2
-            if(pokemonAgentState.getAtaqueEspecialFueHabiltado()[1]){
-                if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[1] == 0)
-                    pokemonAgentState.setEnfriamientoAtaqueEspecial1(3);
-                else
-                    pokemonAgentState.setEnfriamientoAtaqueEspecial2(pokemonAgentState.getEnfriamientoAtaqueEspecial()[1]-1);
-            }
-            // Enfriamiento ataque especial 3
-            if(pokemonAgentState.getAtaqueEspecialFueHabiltado()[2]){
-                if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[2] == 0)
-                    pokemonAgentState.setEnfriamientoAtaqueEspecial1(3);
-                else
-                    pokemonAgentState.setEnfriamientoAtaqueEspecial3(pokemonAgentState.getEnfriamientoAtaqueEspecial()[2]-1);
+            for (int i = 0; i < 3; i++) {
+                // Enfriamiento ataque especial i+1
+                if(pokemonAgentState.getAtaqueEspecialFueHabiltado()[i]){
+                    if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] == 0)
+                        pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] = 3;
+                    else
+                        pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] -= 3;
+                }
             }
 
             // Necesario para no sugerir siempre el moverse a y escapar a en un orden especifico.
