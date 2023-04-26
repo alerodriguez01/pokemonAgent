@@ -93,6 +93,17 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
                 System.out.println("Perception: " + perception);
             }
 
+            // Enfriamientos
+            PokemonAgent pokemonAgent = (PokemonAgent) agent;
+            PokemonAgentState pokemonAgentState = (PokemonAgentState) pokemonAgent.getAgentState();
+            for (int i = 0; i < 3; i++) {
+                // Enfriamiento ataque especial i+1
+                if(pokemonAgentState.getAtaqueEspecialFueHabiltado()[i]){
+                    if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] > 0)
+                        pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] -= 1;
+                }
+            }
+
             System.out.println("Agent State: " + agent.getAgentState());
             System.out.println("Environment: " + environment);
 
@@ -108,18 +119,6 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
             this.actionReturned(agent, action);
 
-
-            PokemonAgent pokemonAgent = (PokemonAgent) agent;
-            PokemonAgentState pokemonAgentState = (PokemonAgentState) pokemonAgent.getAgentState();
-            for (int i = 0; i < 3; i++) {
-                // Enfriamiento ataque especial i+1
-                if(pokemonAgentState.getAtaqueEspecialFueHabiltado()[i]){
-                    if(pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] == 0)
-                        pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] = 3;
-                    else
-                        pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] -= 3;
-                }
-            }
 
             // Necesario para no sugerir siempre el moverse a y escapar a en un orden especifico.
             // Evita entrar en un bucle.
