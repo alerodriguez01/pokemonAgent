@@ -100,7 +100,6 @@ public class PokemonAgentState extends SearchBasedAgentState {
                 lugarPokemonesAdversariosConocidos.set(par.getKey(), par.getValue());
             }
         }
-
     }
 
     /**

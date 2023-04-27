@@ -74,11 +74,11 @@ public class PokemonEnvironment extends Environment {
         super.updateState(ast, action);
 
         // Mover adversarios
-        this.moverAdversarios2(); // Metodo 2
+        this.moverAdversarios();
     }
 
 
-    public void moverAdversarios2() {
+    public void moverAdversarios() {
         List<Adversario> adversarios = this.getEnvironmentState().getAdversarios();
         List<Integer> lugaresAdyacentes;
         List<List<Integer>> lugares = this.getEnvironmentState().getLugares();
