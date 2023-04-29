@@ -96,7 +96,18 @@ public class PokemonAgentState extends SearchBasedAgentState {
                         break;
                     }
                 }
-                // Lo agrego en el nuevo lugar
+                // Me fijo si en el lugar que va a ir el adversario, ya existe un enemigo
+                Adversario advAdyacenteConocido = lugarPokemonesAdversariosConocidos.get(par.getKey());
+                if (advAdyacenteConocido != null) {
+                    for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
+                        // Busco una posicion vacia (distinta de las adyacentes), y lo muevo ahi
+                        if(!perception.getLugarPokemonesAdversariosAdyacentes().containsKey(i) && lugarPokemonesAdversariosConocidos.get(i) == null) {
+                            lugarPokemonesAdversariosConocidos.set(i, advAdyacenteConocido);
+                            break;
+                        }
+                    }
+                }
+                // Finalmente, lo agrego en el nuevo lugar
                 lugarPokemonesAdversariosConocidos.set(par.getKey(), par.getValue());
             }
         }

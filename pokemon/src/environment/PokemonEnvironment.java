@@ -92,11 +92,11 @@ public class PokemonEnvironment extends Environment {
 
         int l = 0;
 
-        int cantAdv = this.getEnvironmentState().getAdversarios().size();
+        //int cantAdv = this.getEnvironmentState().getAdversarios().size();
 
         List<Adversario> advVistos = new ArrayList<>();
 
-        while (cantAdv > 0 && l < lugares.size()) {
+        while (l < lugares.size()) { // cantAdv > 0 && l < lugares.size()
             adv = adversarios.get(l);
             if (adv != null && !advVistos.contains(adv)) // i.e. hay un enemigo en el lugar y todavia no se movio
             {
@@ -127,7 +127,7 @@ public class PokemonEnvironment extends Environment {
                         adversarios.set(lugarRandom, adv);
                     }
                     advVistos.add(adv);
-                    cantAdv--;
+                    //cantAdv--;
                 }
             }
             l++;
