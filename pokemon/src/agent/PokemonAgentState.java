@@ -85,9 +85,12 @@ public class PokemonAgentState extends SearchBasedAgentState {
             lugarPokebolasConocidos.set(par.getKey(), par.getValue());
         }
 
+        // Por cada par de (idLugar, Adversario) percibido
         for (var par : perception.getLugarPokemonesAdversariosAdyacentes().entrySet()) {
-            // Si tengo un adversario adyacente a mi posicion
-            if(par.getValue() != null){
+
+            // 1. Me fijo si tengo un adversario percibido adyacente a mi posicion (mi lugar o alrededores)
+            if (par.getValue() != null) {
+
                 // Busco si el enemigo esta en mi lista de enemigos concidos, y lo saco
                 for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
                     Adversario adv = lugarPokemonesAdversariosConocidos.get(i);
@@ -96,20 +99,22 @@ public class PokemonAgentState extends SearchBasedAgentState {
                         break;
                     }
                 }
-                // Me fijo si en el lugar que va a ir el adversario, ya existe un enemigo
-                Adversario advAdyacenteConocido = lugarPokemonesAdversariosConocidos.get(par.getKey());
-                if (advAdyacenteConocido != null) {
-                    for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
-                        // Busco una posicion vacia (distinta de las adyacentes), y lo muevo ahi
-                        if(!perception.getLugarPokemonesAdversariosAdyacentes().containsKey(i) && lugarPokemonesAdversariosConocidos.get(i) == null) {
-                            lugarPokemonesAdversariosConocidos.set(i, advAdyacenteConocido);
-                            break;
-                        }
+            }
+
+            // 2. Me fijo si en el lugar que va a ir el adversario percibido (sea null o adversario), ya existe un enemigo conocido
+            Adversario advAdyacenteConocido = lugarPokemonesAdversariosConocidos.get(par.getKey());
+            if (advAdyacenteConocido != null) {
+                // Busco una posicion vacia (distinta de las adyacentes), y lo muevo ahi
+                for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
+                    // Si el lugar NO es adyacente y no hay enemigo alli
+                    if (!perception.getLugarPokemonesAdversariosAdyacentes().containsKey(i) && lugarPokemonesAdversariosConocidos.get(i) == null) {
+                        lugarPokemonesAdversariosConocidos.set(i, advAdyacenteConocido);
+                        break;
                     }
                 }
-                // Finalmente, lo agrego en el nuevo lugar
-                lugarPokemonesAdversariosConocidos.set(par.getKey(), par.getValue());
             }
+            // Finalmente, lo agrego en el nuevo lugar (sea un adversario o null)
+            lugarPokemonesAdversariosConocidos.set(par.getKey(), par.getValue());
         }
     }
 
@@ -122,7 +127,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
         lugares = Utilities.crearMapa();
         lugarActual = Utilities.getPosInicialAgente();
         // Inicializar demas variables
-        cantidadPokemonesAdversarios = Utilities.CANT_ADVERSARIOS+1;
+        cantidadPokemonesAdversarios = Utilities.CANT_ADVERSARIOS + 1;
         lugarPokemonesAdversariosConocidos = new ArrayList<>();
         lugarPokebolasConocidos = new ArrayList<>();
         for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
