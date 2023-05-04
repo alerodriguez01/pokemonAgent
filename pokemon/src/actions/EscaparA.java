@@ -62,7 +62,7 @@ public class EscaparA extends SearchAction {
         if(pokemonAgentState.getEnergiaActual() > 0 &&
                 pokemonAgentState.getLugares().get(pokemonAgentState.getLugarActual()).contains(lugar) &&
                 adv != null &&
-                pokemonAgentState.getEnergiaActual() > (int) Math.round(0.25 * adv.getEnergia())){
+                pokemonAgentState.getEnergiaActual() > (int) Math.round(0.25 * adv.getEnergia())){ // La energia a restar es menor que la vida del agente
 
             // Cambiamos estado agente
             pokemonAgentState.setLugarActual(lugar);
