@@ -6,8 +6,7 @@ import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.Problem;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
-import frsf.cidisi.faia.solver.search.DepthFirstSearch;
-import frsf.cidisi.faia.solver.search.Search;
+import frsf.cidisi.faia.solver.search.*;
 import utilities.Utilities;
 
 import java.util.ArrayList;
@@ -82,7 +81,12 @@ public class PokemonAgent extends SearchBasedAgent {
     @Override
     public Action selectAction() {
         // Create the search strategy
-        DepthFirstSearch strategy = new DepthFirstSearch();
+        /*
+        IStepCostFunction costFunction = new PokemonCostFunction();
+        UniformCostSearch strategy = new UniformCostSearch(costFunction);
+        */
+        IEstimatedCostFunction heuristic = new PokemonHeuristic();
+        GreedySearch strategy = new GreedySearch(heuristic);
 
         /**
          * Another search strategy examples:
