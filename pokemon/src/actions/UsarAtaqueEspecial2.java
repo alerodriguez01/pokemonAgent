@@ -19,11 +19,14 @@ public class UsarAtaqueEspecial2 extends SearchAction {
 
         Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(pokemonAgentState.getLugarActual());
 
-        if(pokemonAgentState.getEnergiaActual() > 0 &&
+        if (pokemonAgentState.getEnergiaActual() > 0 &&
            pokemonAgentState.getAtaqueEspecialFueHabiltado()[1] &&
            pokemonAgentState.getEnfriamientoAtaqueEspecial()[1] == 0 &&
            adv != null &&
-           adv.getEnergia() > 0){
+           adv.getEnergia() > 0 &&
+           adv.getEsMaestro() == false
+        )
+        {
 
             int auxEnergia = pokemonAgentState.getEnergiaActual();
             pokemonAgentState.setEnergiaActual((int) Math.round(adv.getEnergia()*1.3));
@@ -55,12 +58,14 @@ public class UsarAtaqueEspecial2 extends SearchAction {
 
         Adversario adv = pokemonAgentState.getLugarPokemonesAdversariosConocidos().get(pokemonAgentState.getLugarActual());
 
-        if(pokemonAgentState.getEnergiaActual() > 0 &&
-           pokemonAgentState.getAtaqueEspecialFueHabiltado()[1] &&
-           pokemonAgentState.getEnfriamientoAtaqueEspecial()[1] == 0 &&
-           adv != null &&
-           adv.getEnergia() > 0){
-
+        if (pokemonAgentState.getEnergiaActual() > 0 &&
+                pokemonAgentState.getAtaqueEspecialFueHabiltado()[1] &&
+                pokemonAgentState.getEnfriamientoAtaqueEspecial()[1] == 0 &&
+                adv != null &&
+                adv.getEnergia() > 0 &&
+                adv.getEsMaestro() == false
+        )
+        {
             // Agente
             int auxEnergia = pokemonAgentState.getEnergiaActual();
             pokemonAgentState.setEnergiaActual((int) Math.round(adv.getEnergia()*1.3));

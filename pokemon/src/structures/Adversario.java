@@ -2,7 +2,7 @@ package structures;
 
 import java.util.Objects;
 
-public class Adversario {
+public class Adversario implements Cloneable {
 
     private Integer id;
     private Integer energia;
@@ -58,6 +58,12 @@ public class Adversario {
     @Override
     public int hashCode() {
         return Objects.hash(id, energia, esMaestro);
+    }
+
+    @Override
+    public Adversario clone()
+    {
+        return new Adversario(this.id, this.energia, this.esMaestro);
     }
 }
 

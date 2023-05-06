@@ -13,6 +13,5 @@ public class PokemonSearchMain {
         SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(pokemonEnvironment, pokemonAgent);
 
         simulator.start();
-
     }
 }
