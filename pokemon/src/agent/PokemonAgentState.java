@@ -69,11 +69,7 @@ public class PokemonAgentState extends SearchBasedAgentState {
         nuevoEstado.setMaestroFueDerrotado(this.isMaestroFueDerrotado());
         nuevoEstado.setLugarActual(this.getLugarActual());
 
-        // ??
-        List<Boolean> newPokebolasConocidas = new ArrayList<>();
-        for (Boolean bool: this.lugarPokebolasConocidos)
-            newPokebolasConocidas.add(bool);
-        nuevoEstado.setLugarPokebolasConocidos(newPokebolasConocidas);
+        nuevoEstado.setLugarPokebolasConocidos(new ArrayList<>(this.getLugarPokebolasConocidos()));
 
         List<Adversario> newAdvsConocidos = new ArrayList<>();
         for (Adversario adv: this.lugarPokemonesAdversariosConocidos)
