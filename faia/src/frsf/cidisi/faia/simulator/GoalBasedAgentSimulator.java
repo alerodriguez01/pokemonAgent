@@ -115,8 +115,6 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Agent State: " + agent.getAgentState());
             System.out.println("Environment: " + environment);
 
-            this.mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
-
             System.out.println("Asking the agent for an action...");
             action = agent.selectAction();
 
@@ -126,6 +124,8 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
             System.out.println("Action returned: " + action);
             System.out.println();
+
+            this.mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
 
             this.actionReturned(agent, action);
 
