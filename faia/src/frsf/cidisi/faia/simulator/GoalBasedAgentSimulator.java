@@ -135,14 +135,16 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
         } while (!this.agentSucceeded(action) && !this.agentFailed(action));
 
+        mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
+
         // Check what happened, if agent has reached the goal or not.
         if (this.agentSucceeded(action)) {
             System.out.println("Agent has reached the goal!");
+            ui.getLabelVictoria().setVisible(true);
         } else {
             System.out.println("ERROR: The simulation has finished, but the agent has not reached his goal.");
+            ui.getLabelDerrota().setVisible(true);
         }
-
-        mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
 
         // Leave a blank line
         System.out.println();

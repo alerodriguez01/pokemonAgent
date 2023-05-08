@@ -43,7 +43,8 @@ public class PokemonUI extends JFrame {
             pos25AdvLabel, pos25PikachuLabel, pos25PokebolaLabel,
             pos26AdvLabel, pos26PikachuLabel, pos26PokebolaLabel,
             pos27AdvLabel, pos27PikachuLabel, pos27PokebolaLabel,
-            pos28AdvLabel, pos28PikachuLabel, pos28PokebolaLabel;
+            pos28AdvLabel, pos28PikachuLabel, pos28PokebolaLabel,
+            labelVictoria, labelDerrota;
 
     private JLayeredPane layeredPane;
 
@@ -65,7 +66,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos0PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos0PikachuLabel.setBounds(124, 173, 50, 50);
-        layeredPane.add(pos0PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos0PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos0PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos0PokebolaLabel.setBounds(124, 173, 50, 50);
@@ -80,7 +81,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos1PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos1PikachuLabel.setBounds(218, 241, 50, 50);
-        layeredPane.add(pos1PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos1PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos1PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos1PokebolaLabel.setBounds(218, 241, 50, 50);
@@ -95,7 +96,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos2PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos2PikachuLabel.setBounds(186, 309, 50, 50);
-        layeredPane.add(pos2PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos2PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos2PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos2PokebolaLabel.setBounds(186, 309, 50, 50);
@@ -109,7 +110,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos3PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos3PikachuLabel.setBounds(269,429, 50, 50);
-        layeredPane.add(pos3PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos3PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos3PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos3PokebolaLabel.setBounds(269,429, 50, 50);
@@ -123,7 +124,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos4PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos4PikachuLabel.setBounds(280,556, 50, 50);
-        layeredPane.add(pos4PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos4PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos4PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos4PokebolaLabel.setBounds(280,556, 50, 50);
@@ -137,7 +138,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos5PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos5PikachuLabel.setBounds(320,494, 50, 50);
-        layeredPane.add(pos5PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos5PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos5PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos5PokebolaLabel.setBounds(320,494, 50, 50);
@@ -151,7 +152,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos6PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos6PikachuLabel.setBounds(346,440, 50, 50);
-        layeredPane.add(pos6PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos6PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos6PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos6PokebolaLabel.setBounds(346,440, 50, 50);
@@ -165,7 +166,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos7PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos7PikachuLabel.setBounds(282,312, 50, 50);
-        layeredPane.add(pos7PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos7PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos7PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos7PokebolaLabel.setBounds(282,312, 50, 50);
@@ -179,7 +180,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos8PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos8PikachuLabel.setBounds(435,311, 50, 50);
-        layeredPane.add(pos8PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos8PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos8PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos8PokebolaLabel.setBounds(435,311, 50, 50);
@@ -193,7 +194,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos9PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos9PikachuLabel.setBounds(316,195, 50, 50);
-        layeredPane.add(pos9PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos9PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos9PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos9PokebolaLabel.setBounds(316,195, 50, 50);
@@ -207,7 +208,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos10PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos10PikachuLabel.setBounds(398,88, 50, 50);
-        layeredPane.add(pos10PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos10PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos10PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos10PokebolaLabel.setBounds(398,88, 50, 50);
@@ -221,7 +222,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos11PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos11PikachuLabel.setBounds(519,194, 50, 50);
-        layeredPane.add(pos11PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos11PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos11PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos11PokebolaLabel.setBounds(519,194, 50, 50);
@@ -235,7 +236,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos12PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos12PikachuLabel.setBounds(521,323, 50, 50);
-        layeredPane.add(pos12PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos12PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos12PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos12PokebolaLabel.setBounds(521,323, 50, 50);
@@ -249,7 +250,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos13PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos13PikachuLabel.setBounds(585,90, 50, 50);
-        layeredPane.add(pos13PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos13PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos13PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos13PokebolaLabel.setBounds(585,90, 50, 50);
@@ -263,7 +264,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos14PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos14PikachuLabel.setBounds(604,143, 50, 50);
-        layeredPane.add(pos14PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos14PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos14PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos14PokebolaLabel.setBounds(604,143, 50, 50);
@@ -277,7 +278,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos15PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos15PikachuLabel.setBounds(644,298, 50, 50);
-        layeredPane.add(pos15PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos15PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos15PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos15PokebolaLabel.setBounds(644,298, 50, 50);
@@ -291,7 +292,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos16PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos16PikachuLabel.setBounds(644,493, 50, 50);
-        layeredPane.add(pos16PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos16PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos16PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos16PokebolaLabel.setBounds(644,493, 50, 50);
@@ -305,7 +306,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos17PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos17PikachuLabel.setBounds(744,124, 50, 50);
-        layeredPane.add(pos17PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos17PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos17PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos17PokebolaLabel.setBounds(744,124, 50, 50);
@@ -320,7 +321,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos18PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos18PikachuLabel.setBounds(739,280, 50, 50);
-        layeredPane.add(pos18PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos18PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos18PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos18PokebolaLabel.setBounds(739,280, 50, 50);
@@ -334,7 +335,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos19PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos19PikachuLabel.setBounds(898,103, 50, 50);
-        layeredPane.add(pos19PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos19PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos19PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos19PokebolaLabel.setBounds(898,103, 50, 50);
@@ -348,7 +349,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos20PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos20PikachuLabel.setBounds(859,272, 50, 50);
-        layeredPane.add(pos20PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos20PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos20PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos20PokebolaLabel.setBounds(859,272, 50, 50);
@@ -362,7 +363,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos21PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos21PikachuLabel.setBounds(849,493, 50, 50);
-        layeredPane.add(pos21PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos21PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos21PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos21PokebolaLabel.setBounds(849,493, 50, 50);
@@ -376,7 +377,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos22PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos22PikachuLabel.setBounds(957,169, 50, 50);
-        layeredPane.add(pos22PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos22PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos22PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos22PokebolaLabel.setBounds(957,169, 50, 50);
@@ -390,7 +391,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos23PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos23PikachuLabel.setBounds(955,406, 50, 50);
-        layeredPane.add(pos23PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos23PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos23PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos23PokebolaLabel.setBounds(955,406, 50, 50);
@@ -404,7 +405,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos24PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos24PikachuLabel.setBounds(1074,87, 50, 50);
-        layeredPane.add(pos24PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos24PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos24PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos24PokebolaLabel.setBounds(1074,87, 50, 50);
@@ -418,7 +419,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos25PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos25PikachuLabel.setBounds(1056,230, 50, 50);
-        layeredPane.add(pos25PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos25PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos25PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos25PokebolaLabel.setBounds(1056,230, 50, 50);
@@ -432,7 +433,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos26PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos26PikachuLabel.setBounds(1054,405, 50, 50);
-        layeredPane.add(pos26PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos26PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos26PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos26PokebolaLabel.setBounds(1054,405, 50, 50);
@@ -446,7 +447,7 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos27PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos27PikachuLabel.setBounds(1039,483, 50, 50);
-        layeredPane.add(pos27PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos27PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos27PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos27PokebolaLabel.setBounds(1039,483, 50, 50);
@@ -460,11 +461,28 @@ public class PokemonUI extends JFrame {
         // Pokemon
         pos28PikachuLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pikachu.png", "").getImage(), 50, 50)));
         pos28PikachuLabel.setBounds(1166,555, 50, 50);
-        layeredPane.add(pos28PikachuLabel, Integer.valueOf(1));
+        layeredPane.add(pos28PikachuLabel, Integer.valueOf(2));
         // Pokebola
         pos28PokebolaLabel = new JLabel(new ImageIcon(getScaledImage(createImageIcon("pokebola.png", "").getImage(), 50, 50)));
         pos28PokebolaLabel.setBounds(1166,555, 50, 50);
         layeredPane.add(pos28PokebolaLabel, Integer.valueOf(1));
+
+
+        // Label victoria
+        labelVictoria = new JLabel("¡Pikachu consiguio el objetivo!");
+        labelVictoria.setBackground(Color.GREEN);
+        labelVictoria.setHorizontalAlignment(SwingConstants.CENTER);
+        labelVictoria.setOpaque(true);
+        labelVictoria.setBounds(416,570,200,50);
+        layeredPane.add(labelVictoria, Integer.valueOf(2));
+
+        // Label derrota
+        labelDerrota = new JLabel("Pikachu NO consiguio el objetivo.");
+        labelDerrota.setBackground(Color.RED);
+        labelDerrota.setHorizontalAlignment(SwingConstants.CENTER);
+        labelDerrota.setOpaque(true);
+        labelDerrota.setBounds(416,570,200,50);
+        layeredPane.add(labelDerrota, Integer.valueOf(2));
 
 
         setTitle("Pokemon");
@@ -646,6 +664,9 @@ public class PokemonUI extends JFrame {
         pos28PikachuLabel.setVisible(false);
         pos28PokebolaLabel.setVisible(false);
 
+        // Label victoria y derrota
+        labelVictoria.setVisible(false);
+        labelDerrota.setVisible(false);
     }
 
     public void setAdvVisible(int i){
@@ -758,6 +779,22 @@ public class PokemonUI extends JFrame {
 
     // Getters y setters
     //region
+
+    public JLabel getLabelVictoria() {
+        return labelVictoria;
+    }
+
+    public void setLabelVictoria(JLabel labelVictoria) {
+        this.labelVictoria = labelVictoria;
+    }
+
+    public JLabel getLabelDerrota() {
+        return labelDerrota;
+    }
+
+    public void setLabelDerrota(JLabel labelDerrota) {
+        this.labelDerrota = labelDerrota;
+    }
 
     public JLabel getBackgroundLabel() {
         return backgroundLabel;
