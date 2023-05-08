@@ -20,6 +20,7 @@ package frsf.cidisi.faia.simulator;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import agent.PokemonAgent;
 import agent.PokemonAgentState;
@@ -114,7 +115,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Agent State: " + agent.getAgentState());
             System.out.println("Environment: " + environment);
 
-            mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
+            this.mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
 
             System.out.println("Asking the agent for an action...");
             action = agent.selectAction();
@@ -132,6 +133,14 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             // Necesario para no sugerir siempre el moverse a y escapar a en un orden especifico.
             // Evita entrar en un bucle.
             pokemonAgent.mezclarOperadores();
+
+            // Introducir delay para ver los movimientos de los enemigos y agente
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
 
         } while (!this.agentSucceeded(action) && !this.agentFailed(action));
 
@@ -156,16 +165,18 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
         SimulatorEventNotifier.runEventHandlers(EventType.SimulationFinished, null);
     }
 
-    private void mostrarUI(PokemonUI ui, Integer lugarAgente, List<Adversario> adversarios, List<Boolean> pokeoblas) {
+    private void mostrarUI(PokemonUI ui, Integer lugarAgente, List<Adversario> adversarios, List<Boolean> pokebolas) {
         ui.setAllNoVisible();
 
         ui.setPikachuVisible(lugarAgente);
         for (int i = 0; i < adversarios.size(); i++) {
             if(adversarios.get(i) != null) ui.setAdvVisible(i);
         }
-        for (int i = 0; i < pokeoblas.size(); i++) {
-            if(pokeoblas.get(i)) ui.setPokebolaVisible(i);
-        }
+
+        /*
+        for (int i = 0; i < pokebolas.size(); i++) {
+            if(pokebolas.get(i)) ui.setPokebolaVisible(i);
+        }*/
 
     }
 

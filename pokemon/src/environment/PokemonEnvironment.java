@@ -85,18 +85,12 @@ public class PokemonEnvironment extends Environment {
         Adversario adv;
 
         Random proximoLugar = new Random();
-
         List<Integer> lugaresVistos;
         Integer lugaresPorVer;
         Integer lugarRandom;
-
-        int l = 0;
-
-        //int cantAdv = this.getEnvironmentState().getAdversarios().size();
-
         List<Adversario> advVistos = new ArrayList<>();
-
-        while (l < lugares.size()) { // cantAdv > 0 && l < lugares.size()
+        for (int l = 0; l < lugares.size(); l++)
+        {
             adv = adversarios.get(l);
             if (adv != null && !advVistos.contains(adv)) // i.e. hay un enemigo en el lugar y todavia no se movio
             {
@@ -109,28 +103,24 @@ public class PokemonEnvironment extends Environment {
                     lugaresVistos = new ArrayList<>();
                     lugaresPorVer = lugaresAdyacentes.size();
 
-                    lugarRandom = proximoLugar.nextInt(lugaresAdyacentes.size());
-                    lugaresPorVer--;
-                    lugaresVistos.add(lugarRandom);
-
                     // Mientras nos queden lugares por ver y el adyacente elegido pseudoaleatoriamente tiene enemigo
-                    while(lugaresPorVer > 0 && adversarios.get(lugarRandom) != null){
-                        lugarRandom = proximoLugar.nextInt(lugaresAdyacentes.size());
+                    do
+                    {
+                        lugarRandom = lugaresAdyacentes.get(proximoLugar.nextInt(lugaresAdyacentes.size()));
                         if(!lugaresVistos.contains(lugarRandom)) {
                             lugaresVistos.add(lugarRandom);
                             lugaresPorVer--;
                         }
-                    }
+                    } while (lugaresPorVer > 0 && adversarios.get(lugarRandom) != null);
+
                     // Si el adyacente no contiene un adversario, moverse
                     if (adversarios.get(lugarRandom) == null) {
                         adversarios.set(l, null);
                         adversarios.set(lugarRandom, adv);
                     }
                     advVistos.add(adv);
-                    //cantAdv--;
                 }
             }
-            l++;
         }
     }
 
