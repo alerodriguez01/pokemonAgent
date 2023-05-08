@@ -173,10 +173,10 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             if(adversarios.get(i) != null) ui.setAdvVisible(i);
         }
 
-        /*
+
         for (int i = 0; i < pokebolas.size(); i++) {
             if(pokebolas.get(i)) ui.setPokebolaVisible(i);
-        }*/
+        }
 
     }
 
