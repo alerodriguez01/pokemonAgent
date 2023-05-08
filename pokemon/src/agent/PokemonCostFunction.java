@@ -18,10 +18,9 @@ public class PokemonCostFunction implements IStepCostFunction {
             cost = 3.0;
         else if (node.getAction() instanceof EscaparA)
             cost = 5.0;
-        /*
-            ConsumirPokebola, HabilitarAtaqueEspecial_i y USarAtaqueEspecial_i
-            no tienen costo
-         */
+
+        //    ConsumirPokebola, HabilitarAtaqueEspecial_i y USarAtaqueEspecial_i
+        //    no tienen costo
 
         return cost;
     }
