@@ -34,7 +34,7 @@ public class PokemonEnvironment extends Environment {
         return perception;
     }
 
-    public Perception getSatelitePercept(){
+    public Perception getSatelitePercept() {
         // Crear la nueva percepcion a retornar
         PokemonPerception perception = new PokemonPerception();
         perception.satelitePerception(this); // Pasamos null porque no es necesario el agente para setear la percepcion
@@ -56,10 +56,10 @@ public class PokemonEnvironment extends Environment {
 
         int agentEnergy;
 
-        if(actionReturned != null){
-          agentEnergy = pokemonEnvironmentState.getEnergiaAgente();
+        if (actionReturned != null) {
+            agentEnergy = pokemonEnvironmentState.getEnergiaAgente();
             // si el agente no tiene energia, ha fallado.
-          if (agentEnergy <= 0)
+            if (agentEnergy <= 0)
                 return true;
         }
 
@@ -85,17 +85,19 @@ public class PokemonEnvironment extends Environment {
         Adversario adv;
 
         Random proximoLugar = new Random();
+        Random probMoverse = new Random();
         List<Integer> lugaresVistos;
         Integer lugaresPorVer;
         Integer lugarRandom;
         List<Adversario> advVistos = new ArrayList<>();
-        for (int l = 0; l < lugares.size(); l++)
-        {
+        for (int l = 0; l < lugares.size(); l++) {
             adv = adversarios.get(l);
             if (adv != null && !advVistos.contains(adv)) // i.e. hay un enemigo en el lugar y todavia no se movio
             {
-                // Si el adversario no es maestro (el maestro no se mueve)
-                if (!adv.getEsMaestro()) {
+                // Si el adversario no es maestro (el maestro no se mueve)b y si ciclosSinMoverse es mayor que random (valor entre 1,2,3), se mueve
+                // Entonces, cuando tenga 0 ciclos sin moverse (acaba de moverse), tiene que esperar al prox ciclo.
+                // A medida que aumenta el ciclo sin moverse, tiene mas posibilidades de moverse (primero 33%, despues 66% y 100%).
+                if (!adv.getEsMaestro() && adv.getCiclosSinMoverse() >= probMoverse.nextInt(4)) {
 
                     lugaresAdyacentes = lugares.get(l);
 
@@ -104,21 +106,28 @@ public class PokemonEnvironment extends Environment {
                     lugaresPorVer = lugaresAdyacentes.size();
 
                     // Mientras nos queden lugares por ver y el adyacente elegido pseudoaleatoriamente tiene enemigo
-                    do
-                    {
+                    do {
                         lugarRandom = lugaresAdyacentes.get(proximoLugar.nextInt(lugaresAdyacentes.size()));
-                        if(!lugaresVistos.contains(lugarRandom)) {
+                        if (!lugaresVistos.contains(lugarRandom)) {
                             lugaresVistos.add(lugarRandom);
                             lugaresPorVer--;
                         }
                     } while (lugaresPorVer > 0 && adversarios.get(lugarRandom) != null);
 
+                    //}
                     // Si el adyacente no contiene un adversario, moverse
                     if (adversarios.get(lugarRandom) == null) {
                         adversarios.set(l, null);
                         adversarios.set(lugarRandom, adv);
+                        adv.setCiclosSinMoverse(0);
+                    } else { // si no se movio
+                        adv.setCiclosSinMoverse(adv.getCiclosSinMoverse() + 1);
                     }
+
                     advVistos.add(adv);
+
+                } else { // si no se movio
+                    adv.setCiclosSinMoverse(adv.getCiclosSinMoverse() + 1);
                 }
             }
         }

@@ -106,14 +106,14 @@ public class PokemonEnvironmentState extends EnvironmentState {
             if (idLugaresAdvComunes.contains(i)) {
                 // La energia del adversario es 15 +- 5
                 varianza = (int) Math.pow(-1,random.nextInt(2)) * random.nextInt(VARIANZA_ENERGIA_ADVERSARIOS+1);
-                advComun = new Adversario(idAdv, MEDIA_ENERGIA_ADVERSARIOS+varianza, false);
+                advComun = new Adversario(idAdv, MEDIA_ENERGIA_ADVERSARIOS+varianza, false,3);
                 adversarios.add(advComun);
                 idAdv++;
             } else
                 adversarios.add(null);
         }
         // Agregar al maestro
-        Adversario maestro = new Adversario(idAdv, 100, true);
+        Adversario maestro = new Adversario(idAdv, 100, true,3);
         adversarios.set(ID_LUGAR_MAESTRO, maestro);
     }
 

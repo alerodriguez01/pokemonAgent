@@ -7,11 +7,13 @@ public class Adversario implements Cloneable {
     private Integer id;
     private Integer energia;
     private Boolean esMaestro;
+    private Integer ciclosSinMoverse;
 
-    public Adversario(Integer id, Integer energia, Boolean esMaestro) {
+    public Adversario(Integer id, Integer energia, Boolean esMaestro, Integer ciclosSinMoverse) {
         this.id = id;
         this.energia = energia;
         this.esMaestro = esMaestro;
+        this.ciclosSinMoverse = ciclosSinMoverse;
     }
 
     public Integer getId() {
@@ -44,6 +46,7 @@ public class Adversario implements Cloneable {
                 "id=" + id +
                 ", energia=" + energia +
                 ", esMaestro=" + esMaestro +
+                ", ciclosSinMoverse=" + ciclosSinMoverse +
                 '}';
     }
 
@@ -52,7 +55,15 @@ public class Adversario implements Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Adversario that = (Adversario) o;
-        return Objects.equals(id, that.id) && Objects.equals(energia, that.energia) && Objects.equals(esMaestro, that.esMaestro);
+        return Objects.equals(id, that.id) && Objects.equals(energia, that.energia) && Objects.equals(esMaestro, that.esMaestro) && Objects.equals(ciclosSinMoverse, that.ciclosSinMoverse);
+    }
+
+    public Integer getCiclosSinMoverse() {
+        return ciclosSinMoverse;
+    }
+
+    public void setCiclosSinMoverse(Integer ciclosSinMoverse) {
+        this.ciclosSinMoverse = ciclosSinMoverse;
     }
 
     @Override
@@ -63,7 +74,7 @@ public class Adversario implements Cloneable {
     @Override
     public Adversario clone()
     {
-        return new Adversario(this.id, this.energia, this.esMaestro);
+        return new Adversario(this.id, this.energia, this.esMaestro, this.ciclosSinMoverse);
     }
 }
 

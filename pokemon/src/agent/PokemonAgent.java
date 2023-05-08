@@ -86,8 +86,8 @@ public class PokemonAgent extends SearchBasedAgent {
         IStepCostFunction costFunction = new PokemonCostFunction();
         UniformCostSearch strategy = new UniformCostSearch(costFunction);
         */
-        /*I
-        EstimatedCostFunction heuristic = new PokemonHeuristic();
+        /*
+        IEstimatedCostFunction heuristic = new PokemonHeuristic();
         GreedySearch strategy = new GreedySearch(heuristic);
          */
 
