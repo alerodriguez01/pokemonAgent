@@ -32,7 +32,8 @@ public class PokemonEnvironmentState extends EnvironmentState {
         lugares = Utilities.crearMapa();
         lugarActualAgente = Utilities.getPosInicialAgente();
         // Setea cada lugar con sus pokebolas
-        //crearPokebolas();
+        crearPokebolas();
+        /*
         lugarPokebolas = new ArrayList<>();
         // Pokebolas en 0, 3, 9
         lugarPokebolas.add(true);
@@ -46,8 +47,11 @@ public class PokemonEnvironmentState extends EnvironmentState {
         lugarPokebolas.add(false);
         lugarPokebolas.add(true);
 
+         */
+
         // Setea cada lugar con su adversario
-        //crearAdversarios();
+        crearAdversarios();
+        /*
         adversarios = new ArrayList<>();
         // Adversarios en 1, 4, 6, 7, 8
         adversarios.add(null);
@@ -60,6 +64,8 @@ public class PokemonEnvironmentState extends EnvironmentState {
         adversarios.add(new Adversario(3, 15, false));
         adversarios.add(new Adversario(4, 100, true));
         adversarios.add(null);
+
+         */
 
         energiaAgente = Utilities.getEnergiaInicialAgente();
     }
