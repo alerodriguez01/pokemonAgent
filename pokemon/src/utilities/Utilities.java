@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Utilities {
-    public static final int CANT_LUGARES = 10; //29;
-    public static final int ID_LUGAR_MAESTRO = 8; //21;
-    public static final int CANT_ADVERSARIOS = 4;//15; // Sin incluir al maestro
-    public static final int CANT_POKEBOLAS = 3;//5;
+    public static final int CANT_LUGARES = 29;
+    public static final int ID_LUGAR_MAESTRO = 21;
+    public static final int CANT_ADVERSARIOS = 15; // Sin incluir al maestro
+    public static final int CANT_POKEBOLAS = 5;
     private static int idLugarInicialAgente = 2;//-1;
-    private static int energiaInicialAgente = 200; //1000;
+    private static int energiaInicialAgente = 1000;
     private static List<List<Integer>> lugares = null;
 
     public static List<List<Integer>> crearMapa() {
@@ -21,7 +21,6 @@ public class Utilities {
             lugares = new ArrayList<>();
 
             // Mapa completo
-            /*
             // Lugar 0
             lugares.add(Arrays.asList(1));
             // Lugar 1
@@ -80,9 +79,8 @@ public class Utilities {
             lugares.add(Arrays.asList(21, 23, 28));
             // Lugar 28
             lugares.add(Arrays.asList(26, 27));
-            */
 
-            ///*
+            /*
             //America:
             // Lugar 0
             lugares.add(Arrays.asList(1));
@@ -104,7 +102,7 @@ public class Utilities {
             lugares.add(Arrays.asList(3, 7, 9));
             // Lugar 9
             lugares.add(Arrays.asList(1, 8));
-            //*/
+            */
         }
         return lugares;
     }
