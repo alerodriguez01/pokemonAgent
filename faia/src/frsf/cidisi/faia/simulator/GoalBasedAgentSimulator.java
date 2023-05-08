@@ -17,11 +17,13 @@
  */
 package frsf.cidisi.faia.simulator;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
 import agent.PokemonAgent;
 import agent.PokemonAgentState;
+import environment.PokemonEnvironmentState;
 import frsf.cidisi.faia.agent.GoalBasedAgent;
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Action;
@@ -30,6 +32,8 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.environment.Environment;
 import frsf.cidisi.faia.simulator.events.EventType;
 import frsf.cidisi.faia.simulator.events.SimulatorEventNotifier;
+import structures.Adversario;
+import ui.PokemonUI;
 
 public abstract class GoalBasedAgentSimulator extends Simulator {
 
@@ -72,6 +76,9 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
         Random random = new Random();
         int enfriamientoSatelite = 0;
 
+        PokemonUI ui = new PokemonUI();
+        ui.setAllNoVisible();
+
         do {
 
             System.out.println("------------------------------------");
@@ -107,6 +114,8 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Agent State: " + agent.getAgentState());
             System.out.println("Environment: " + environment);
 
+            mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
+
             System.out.println("Asking the agent for an action...");
             action = agent.selectAction();
 
@@ -126,11 +135,15 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
         } while (!this.agentSucceeded(action) && !this.agentFailed(action));
 
+        mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
+
         // Check what happened, if agent has reached the goal or not.
         if (this.agentSucceeded(action)) {
             System.out.println("Agent has reached the goal!");
+            ui.getLabelVictoria().setVisible(true);
         } else {
             System.out.println("ERROR: The simulation has finished, but the agent has not reached his goal.");
+            ui.getLabelDerrota().setVisible(true);
         }
 
         // Leave a blank line
@@ -141,6 +154,19 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
         // Launch simulationFinished event
         SimulatorEventNotifier.runEventHandlers(EventType.SimulationFinished, null);
+    }
+
+    private void mostrarUI(PokemonUI ui, Integer lugarAgente, List<Adversario> adversarios, List<Boolean> pokeoblas) {
+        ui.setAllNoVisible();
+
+        ui.setPikachuVisible(lugarAgente);
+        for (int i = 0; i < adversarios.size(); i++) {
+            if(adversarios.get(i) != null) ui.setAdvVisible(i);
+        }
+        for (int i = 0; i < pokeoblas.size(); i++) {
+            if(pokeoblas.get(i)) ui.setPokebolaVisible(i);
+        }
+
     }
 
     /**
