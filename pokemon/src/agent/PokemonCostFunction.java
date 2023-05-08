@@ -22,6 +22,6 @@ public class PokemonCostFunction implements IStepCostFunction {
         //    ConsumirPokebola, HabilitarAtaqueEspecial_i y USarAtaqueEspecial_i
         //    no tienen costo
 
-        return cost;
+        return cost + node.getParent().getCost();
     }
 }
