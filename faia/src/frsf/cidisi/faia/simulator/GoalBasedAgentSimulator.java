@@ -100,7 +100,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
                 agent.see(perception);
                 System.out.println("Perception: " + perception);
             }
-
+            PokemonAgent pokemonAgent = (PokemonAgent) agent;
             /*
             // Enfriamientos
             PokemonAgent pokemonAgent = (PokemonAgent) agent;
