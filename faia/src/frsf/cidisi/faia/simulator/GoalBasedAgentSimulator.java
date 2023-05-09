@@ -101,6 +101,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
                 System.out.println("Perception: " + perception);
             }
 
+            /*
             // Enfriamientos
             PokemonAgent pokemonAgent = (PokemonAgent) agent;
             PokemonAgentState pokemonAgentState = (PokemonAgentState) pokemonAgent.getAgentState();
@@ -111,6 +112,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
                         pokemonAgentState.getEnfriamientoAtaqueEspecial()[i] -= 1;
                 }
             }
+             */
 
             System.out.println("Agent State: " + agent.getAgentState());
             System.out.println("Environment: " + environment);
