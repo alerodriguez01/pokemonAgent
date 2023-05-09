@@ -1,5 +1,7 @@
 package utilities;
 
+import agent.PokemonAgentState;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +13,7 @@ public class Utilities {
     public static final int CANT_ADVERSARIOS = 15; // Sin incluir al maestro
     public static final int CANT_POKEBOLAS = 5;
     private static int idLugarInicialAgente = -1;
-    private static int energiaInicialAgente = 1000;
+    private static int energiaInicialAgente = 25;//250;//1000;
     private static List<List<Integer>> lugares = null;
 
     public static List<List<Integer>> crearMapa() {
@@ -133,4 +135,13 @@ public class Utilities {
         return energiaInicialAgente;
     }
 
+    public static void decrementarEnfriamientoAtaquesEspeciales(PokemonAgentState pas) {
+        for (int i = 0; i < 3; i++) {
+            // Enfriamiento ataque especial i+1
+            if(pas.getAtaqueEspecialFueHabiltado()[i]){
+                if(pas.getEnfriamientoAtaqueEspecial()[i] > 0)
+                    pas.getEnfriamientoAtaqueEspecial()[i] -= 1;
+            }
+        }
+    }
 }

@@ -7,6 +7,7 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
+import utilities.Utilities;
 
 import java.util.Random;
 
@@ -28,6 +29,8 @@ public class ConsumirPokebola extends SearchAction {
             int energiaPokebola = 5 + random.nextInt(6); // Entre 5 y 10
             pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual()+energiaPokebola);
             pokemonAgentState.getLugarPokebolasConocidos().set(pokemonAgentState.getLugarActual(), false);
+
+            Utilities.decrementarEnfriamientoAtaquesEspeciales(pokemonAgentState);
 
             return pokemonAgentState;
 
@@ -61,6 +64,8 @@ public class ConsumirPokebola extends SearchAction {
             int energiaPokebola = 5 + random.nextInt(6); // Entre 5 y 10
             pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual()+energiaPokebola);
             pokemonAgentState.getLugarPokebolasConocidos().set(pokemonAgentState.getLugarActual(), false);
+
+            Utilities.decrementarEnfriamientoAtaquesEspeciales(pokemonAgentState);
 
             // Cambio del estado del ambiente
             environmentState.setEnergiaAgente(environmentState.getEnergiaAgente()+energiaPokebola);

@@ -7,6 +7,7 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
 import structures.Adversario;
+import utilities.Utilities;
 
 public class Pelear extends SearchAction {
 
@@ -25,11 +26,13 @@ public class Pelear extends SearchAction {
            pokemonAgentState.getEnergiaActual() > adv.getEnergia()){
 
             // Seteo de nueva energia
-            pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual() - adv.getEnergia() + (int) Math.round(adv.getEnergia() * 0.2));
+            pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual() /*- adv.getEnergia()*/ + (int) Math.round(adv.getEnergia() * 0.2));
             pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
             // Mato al adversario
             pokemonAgentState.getLugarPokemonesAdversariosConocidos().set(pokemonAgentState.getLugarActual(), null);
             if(adv.getEsMaestro()) pokemonAgentState.setMaestroFueDerrotado(true);
+
+            Utilities.decrementarEnfriamientoAtaquesEspeciales(pokemonAgentState);
 
             return pokemonAgentState;
         }
@@ -62,11 +65,13 @@ public class Pelear extends SearchAction {
 
             // Agente
             // Seteo de nueva energia
-            pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual() - adv.getEnergia() + (int) Math.round(adv.getEnergia() * 0.2));
+            pokemonAgentState.setEnergiaActual(pokemonAgentState.getEnergiaActual() /*- adv.getEnergia()*/ + (int) Math.round(adv.getEnergia() * 0.2));
             pokemonAgentState.setCantidadPokemonesAdversarios(pokemonAgentState.getCantidadPokemonesAdversarios() - 1);
             // Mato al adversario
             pokemonAgentState.getLugarPokemonesAdversariosConocidos().set(pokemonAgentState.getLugarActual(), null);
             if(adv.getEsMaestro()) pokemonAgentState.setMaestroFueDerrotado(true);
+
+            Utilities.decrementarEnfriamientoAtaquesEspeciales(pokemonAgentState);
 
             // Ambiente
             environmentState.getAdversarios().set(environmentState.getLugarActualAgente(), null);

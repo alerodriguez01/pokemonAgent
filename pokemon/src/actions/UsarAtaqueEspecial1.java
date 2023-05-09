@@ -25,7 +25,7 @@ public class UsarAtaqueEspecial1 extends SearchAction {
            adv != null &&
            adv.getEnergia() > 0){
 
-            pokemonAgentState.setEnergiaActual((int) Math.round(1.2 * pokemonAgentState.getEnergiaActual()));
+            pokemonAgentState.setEnergiaActual((int) Math.round(pokemonAgentState.getEnergiaActual() + 0.2 * adv.getEnergia()));
             adv.setEnergia((int) Math.round(adv.getEnergia() * 0.8));
             pokemonAgentState.setEnfriamientoAtaqueEspecial1(3);
 
@@ -61,14 +61,14 @@ public class UsarAtaqueEspecial1 extends SearchAction {
            adv.getEnergia() > 0){
 
             // Agente
-            pokemonAgentState.setEnergiaActual((int) Math.round(1.2 * pokemonAgentState.getEnergiaActual()));
+            pokemonAgentState.setEnergiaActual((int) Math.round(pokemonAgentState.getEnergiaActual() + 0.2 * adv.getEnergia()));
             adv.setEnergia((int) Math.round(adv.getEnergia() * 0.8));
             pokemonAgentState.setEnfriamientoAtaqueEspecial1(3);
 
             // Ambiente
             Adversario advAmbiente = environmentState.getAdversarios().get(environmentState.getLugarActualAgente());
+            environmentState.setEnergiaAgente((int) Math.round(environmentState.getEnergiaAgente() + 0.2 * advAmbiente.getEnergia()));
             advAmbiente.setEnergia((int) Math.round(adv.getEnergia() * 0.8));
-            environmentState.setEnergiaAgente((int) Math.round(1.2 * environmentState.getEnergiaAgente()));
 
             return environmentState;
         }

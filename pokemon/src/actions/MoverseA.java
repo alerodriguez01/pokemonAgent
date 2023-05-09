@@ -7,6 +7,7 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
 import structures.Adversario;
+import utilities.Utilities;
 
 public class MoverseA extends SearchAction {
 
@@ -31,6 +32,9 @@ public class MoverseA extends SearchAction {
            adv == null){
 
             pokemonAgentState.setLugarActual(lugar);
+
+            Utilities.decrementarEnfriamientoAtaquesEspeciales(pokemonAgentState);
+
             return pokemonAgentState;
         }
 
@@ -62,6 +66,8 @@ public class MoverseA extends SearchAction {
 
             // Cambiamos estado agente
             pokemonAgentState.setLugarActual(lugar);
+
+            Utilities.decrementarEnfriamientoAtaquesEspeciales(pokemonAgentState);
 
             // Cambiamos estado ambiente
             environmentState.setLugarActualAgente(lugar);
