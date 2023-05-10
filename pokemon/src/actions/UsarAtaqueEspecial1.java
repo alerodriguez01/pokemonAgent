@@ -68,7 +68,7 @@ public class UsarAtaqueEspecial1 extends SearchAction {
             // Ambiente
             Adversario advAmbiente = environmentState.getAdversarios().get(environmentState.getLugarActualAgente());
             environmentState.setEnergiaAgente((int) Math.round(environmentState.getEnergiaAgente() + 0.2 * advAmbiente.getEnergia()));
-            advAmbiente.setEnergia((int) Math.round(adv.getEnergia() * 0.8));
+            advAmbiente.setEnergia((int) Math.round(advAmbiente.getEnergia() * 0.8));
 
             return environmentState;
         }
