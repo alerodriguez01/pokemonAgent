@@ -13,7 +13,7 @@ public class Utilities {
     public static final int CANT_ADVERSARIOS = 14; // Sin incluir al maestro
     public static final int CANT_POKEBOLAS = 5;
     private static int idLugarInicialAgente = -1;
-    private static int energiaInicialAgente = 250;//250;//1000;
+    private static int energiaInicialAgente = 100;//250;//1000;
     private static List<List<Integer>> lugares = null;
 
     public static List<List<Integer>> crearMapa() {
