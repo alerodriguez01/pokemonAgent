@@ -55,7 +55,7 @@ public class Adversario implements Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Adversario that = (Adversario) o;
-        return Objects.equals(id, that.id) && Objects.equals(energia, that.energia) && Objects.equals(esMaestro, that.esMaestro) && Objects.equals(ciclosSinMoverse, that.ciclosSinMoverse);
+        return Objects.equals(id, that.id);// && Objects.equals(energia, that.energia) && Objects.equals(esMaestro, that.esMaestro);
     }
 
     public Integer getCiclosSinMoverse() {

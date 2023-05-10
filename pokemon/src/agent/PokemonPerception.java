@@ -43,7 +43,8 @@ public class PokemonPerception extends Perception {
         List<Adversario> lugarPokemonesAdversarios = estadoAmb.getAdversarios();
         for (Integer lugarAdy: adyacencias) {
             Adversario adv = lugarPokemonesAdversarios.get(lugarAdy);
-            lugarPokemonesAdversariosAdyacentes.put(lugarAdy, adv);
+            if(adv != null) lugarPokemonesAdversariosAdyacentes.put(lugarAdy, adv.clone());
+            else lugarPokemonesAdversariosAdyacentes.put(lugarAdy, null);
         }
 
         List<Boolean> lugarPokebolas = estadoAmb.getLugarPokebolas();
@@ -55,9 +56,12 @@ public class PokemonPerception extends Perception {
 
     public void satelitePerception(Environment environment){
         PokemonEnvironment amb = (PokemonEnvironment) environment;
+        Adversario adv;
         for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
             lugarPokebolasAdyacentes.put(i, amb.getEnvironmentState().getLugarPokebolas().get(i));
-            lugarPokemonesAdversariosAdyacentes.put(i, amb.getEnvironmentState().getAdversarios().get(i));
+            adv = amb.getEnvironmentState().getAdversarios().get(i);
+            if(adv != null) lugarPokemonesAdversariosAdyacentes.put(i, adv.clone());
+            else lugarPokemonesAdversariosAdyacentes.put(i, null);
         }
     }
 
