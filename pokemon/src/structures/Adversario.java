@@ -68,7 +68,7 @@ public class Adversario implements Cloneable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, energia, esMaestro);
+        return Objects.hash(id, energia, esMaestro, ciclosSinMoverse);
     }
 
     @Override

@@ -85,7 +85,7 @@ public class EscaparA extends SearchAction {
 
     @Override
     public String toString() {
-        return "EscaparA"+lugar;
+        return "Escapar a "+lugar;
     }
 
 }

@@ -92,13 +92,14 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
                 perception = this.getSatelitePercept();
                 agent.see(perception);
                 System.out.println("Satelite perception: " + perception);
-
+                ui.getLabelSatelite().setVisible(true);
             } else{ // Perception normal
                 enfriamientoSatelite--;
                 System.out.println("Sending perception to agent...");
                 perception = this.getPercept();
                 agent.see(perception);
                 System.out.println("Perception: " + perception);
+                ui.getLabelSatelite().setVisible(false);
             }
             PokemonAgent pokemonAgent = (PokemonAgent) agent;
             /*
@@ -127,7 +128,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             System.out.println("Action returned: " + action);
             System.out.println();
 
-            this.mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
+            this.mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getEnergiaAgente(), action);
 
             this.actionReturned(agent, action);
 
@@ -138,7 +139,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
             // Introducir delay para ver los movimientos de los enemigos y agente
             try {
-                TimeUnit.MILLISECONDS.sleep(1500);
+                TimeUnit.MILLISECONDS.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -146,7 +147,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
         } while (!this.agentSucceeded(action) && !this.agentFailed(action));
 
-        mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas());
+        mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getEnergiaAgente(), action);
 
         // Check what happened, if agent has reached the goal or not.
         if (this.agentSucceeded(action)) {
@@ -167,18 +168,23 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
         SimulatorEventNotifier.runEventHandlers(EventType.SimulationFinished, null);
     }
 
-    private void mostrarUI(PokemonUI ui, Integer lugarAgente, List<Adversario> adversarios, List<Boolean> pokebolas) {
+    private void mostrarUI(PokemonUI ui, Integer lugarAgente, List<Adversario> adversarios, List<Boolean> pokebolas, Integer energiaAgente, Action action) {
         ui.setAllNoVisible();
 
         ui.setPikachuVisible(lugarAgente);
         for (int i = 0; i < adversarios.size(); i++) {
-            if(adversarios.get(i) != null) ui.setAdvVisible(i);
+            if(adversarios.get(i) != null){
+                ui.setAdvVisible(i, adversarios.get(i).getEsMaestro());
+            }
         }
 
 
         for (int i = 0; i < pokebolas.size(); i++) {
             if(pokebolas.get(i)) ui.setPokebolaVisible(i);
         }
+
+        ui.setLabelEnergia(energiaAgente);
+        if(action != null) ui.setLabelUltimaAccion(action.toString());
 
     }
 

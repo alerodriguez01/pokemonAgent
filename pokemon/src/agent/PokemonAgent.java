@@ -28,13 +28,13 @@ public class PokemonAgent extends SearchBasedAgent {
 
         // Crear los operadores (atencion al orden)
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        operators.addElement(new HabilitarAtaqueEspecial1());
-        operators.addElement(new HabilitarAtaqueEspecial2());
-        operators.addElement(new HabilitarAtaqueEspecial3());
         operators.addElement(new UsarAtaqueEspecial3());
         operators.addElement(new UsarAtaqueEspecial2());
         operators.addElement(new UsarAtaqueEspecial1());
         operators.addElement(new Pelear());
+        operators.addElement(new HabilitarAtaqueEspecial1());
+        operators.addElement(new HabilitarAtaqueEspecial2());
+        operators.addElement(new HabilitarAtaqueEspecial3());
         operators.addElement(new ConsumirPokebola());
         for (int i = 0; i < Utilities.CANT_LUGARES; i++) {
             operators.addElement(new MoverseA(i));
@@ -47,13 +47,13 @@ public class PokemonAgent extends SearchBasedAgent {
 
     public void mezclarOperadores(){
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        operators.addElement(new HabilitarAtaqueEspecial1());
-        operators.addElement(new HabilitarAtaqueEspecial2());
-        operators.addElement(new HabilitarAtaqueEspecial3());
         operators.addElement(new UsarAtaqueEspecial3());
         operators.addElement(new UsarAtaqueEspecial2());
         operators.addElement(new UsarAtaqueEspecial1());
         operators.addElement(new Pelear());
+        operators.addElement(new HabilitarAtaqueEspecial1());
+        operators.addElement(new HabilitarAtaqueEspecial2());
+        operators.addElement(new HabilitarAtaqueEspecial3());
         operators.addElement(new ConsumirPokebola());
         List<Integer> posiciones = new ArrayList<>();
         for (int i = 0; i < Utilities.CANT_LUGARES; i++) posiciones.add(i);

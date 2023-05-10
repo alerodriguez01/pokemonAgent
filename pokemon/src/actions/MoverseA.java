@@ -80,6 +80,6 @@ public class MoverseA extends SearchAction {
 
     @Override
     public String toString() {
-        return "MoverseA"+lugar;
+        return "Moverse a "+lugar;
     }
 }

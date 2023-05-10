@@ -58,6 +58,6 @@ public class HabilitarAtaqueEspecial1 extends SearchAction {
 
     @Override
     public String toString() {
-        return "Habilitar ataque especial 1";
+        return "Habilitar ataque 1";
     }
 }

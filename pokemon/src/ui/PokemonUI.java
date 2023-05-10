@@ -17,11 +17,12 @@ public class PokemonUI extends JFrame {
 
 
     private JPanel panel1;
-    private JLabel backgroundLabel, labelVictoria, labelDerrota;
+    private JLabel backgroundLabel, labelVictoria, labelDerrota, labelEnergia, labelUltimaAccion, labelSatelite;
     private List<JLabel> labelsAdv;
     private List<JLabel> labelsPokebolas;
     private List<JLabel> labelsPikachu;
     private JLayeredPane layeredPane;
+    private List<Integer> dimX, dimY;
 
     public PokemonUI() {
 
@@ -33,8 +34,8 @@ public class PokemonUI extends JFrame {
         backgroundLabel.setBounds(0, 0, background.getIconWidth(), background.getIconHeight());
         layeredPane.add(backgroundLabel, Integer.valueOf(0));
 
-        List<Integer> dimX = new ArrayList<>();
-        List<Integer> dimY = new ArrayList<>();
+        dimX = new ArrayList<>();
+        dimY = new ArrayList<>();
         // Posicion (x,y)
         // region
         // Posicion 0
@@ -122,25 +123,49 @@ public class PokemonUI extends JFrame {
 
 
         // Label victoria
-        labelVictoria = new JLabel("¡Pikachu consiguio el objetivo!");
-        labelVictoria.setBackground(Color.GREEN);
-        labelVictoria.setHorizontalAlignment(SwingConstants.CENTER);
-        labelVictoria.setOpaque(true);
-        labelVictoria.setBounds(416,570,200,50);
-        layeredPane.add(labelVictoria, Integer.valueOf(2));
+        //labelVictoria = new JLabel("¡Pikachu consiguio el objetivo!");
+        //labelVictoria.setBackground(Color.GREEN);
+        //labelVictoria.setHorizontalAlignment(SwingConstants.CENTER);
+        //labelVictoria.setOpaque(true);
+        ImageIcon victoria = createImageIcon("victoria.png", "");
+        labelVictoria = new JLabel(victoria);
+        labelVictoria.setBounds(350,180, victoria.getIconWidth(),victoria.getIconHeight());
+        layeredPane.add(labelVictoria, Integer.valueOf(3));
 
         // Label derrota
-        labelDerrota = new JLabel("Pikachu NO consiguio el objetivo.");
-        labelDerrota.setBackground(Color.RED);
-        labelDerrota.setHorizontalAlignment(SwingConstants.CENTER);
-        labelDerrota.setOpaque(true);
-        labelDerrota.setBounds(416,570,200,50);
-        layeredPane.add(labelDerrota, Integer.valueOf(2));
+        //labelDerrota = new JLabel("Pikachu NO consiguio el objetivo.");
+        //labelDerrota.setBackground(Color.RED);
+        //labelDerrota.setHorizontalAlignment(SwingConstants.CENTER);
+        //labelDerrota.setOpaque(true);
+        ImageIcon derrota = createImageIcon("derrota.png", "");
+        labelDerrota = new JLabel(derrota);
+        labelDerrota.setBounds(350,180,derrota.getIconWidth(),derrota.getIconHeight());
+        layeredPane.add(labelDerrota, Integer.valueOf(3));
+
+        // Label energia
+        labelEnergia = new JLabel("");
+        //labelEnergia.setHorizontalAlignment(SwingConstants.CENTER);
+        labelEnergia.setFont(new Font("Verdana", Font.BOLD, 24));
+        labelEnergia.setBounds(90,480,200,50);
+        layeredPane.add(labelEnergia, Integer.valueOf(3));
+
+        // Label ultima accion
+        labelUltimaAccion = new JLabel("");
+        labelUltimaAccion.setFont(new Font("Verdana", Font.BOLD, 14));
+        labelUltimaAccion.setHorizontalAlignment(SwingConstants.CENTER);
+        labelUltimaAccion.setBounds(22,560,200,50);
+        layeredPane.add(labelUltimaAccion, Integer.valueOf(3));
+
+        // Label satelite
+        ImageIcon satelite = createImageIcon("satelite.png", "");
+        labelSatelite = new JLabel(satelite);
+        labelSatelite.setBounds(40,380, satelite.getIconWidth(),satelite.getIconHeight());
+        layeredPane.add(labelSatelite, Integer.valueOf(2));
 
 
         setTitle("Pokemon");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(background.getIconWidth()+10, background.getIconHeight()+30);
+        setSize(background.getIconWidth()+11, background.getIconHeight()+37);
         setLocationRelativeTo(null);
         setContentPane(panel1);
         setVisible(true);
@@ -183,7 +208,12 @@ public class PokemonUI extends JFrame {
         labelDerrota.setVisible(false);
     }
 
-    public void setAdvVisible(int i){
+    public void setAdvVisible(int i, boolean maestro){
+        if(maestro)
+            labelsAdv.get(i).setIcon(new ImageIcon(getScaledImage(createImageIcon("maestro.png", "").getImage(), 50, 50)));
+        else
+            labelsAdv.get(i).setIcon(new ImageIcon(getScaledImage(createImageIcon("adversario.png", "").getImage(), 50, 50)));
+
         labelsAdv.get(i).setVisible(true);
     }
 
@@ -199,6 +229,8 @@ public class PokemonUI extends JFrame {
     public static void main(String[] args) {
         PokemonUI ui = new PokemonUI();
         //ui.setAllNoVisible();
+        ui.setLabelUltimaAccion("Pelear");
+        ui.setLabelEnergia(100);
     }
 
     // Getters y setters
@@ -224,6 +256,18 @@ public class PokemonUI extends JFrame {
 
     public void setBackgroundLabel(JLabel backgroundLabel) {
         this.backgroundLabel = backgroundLabel;
+    }
+
+    public void setLabelEnergia(Integer energia) {
+        this.labelEnergia.setText(String.valueOf(energia));
+    }
+
+    public void setLabelUltimaAccion(String ultimaAccion) {
+        this.labelUltimaAccion.setText(ultimaAccion);
+    }
+
+    public JLabel getLabelSatelite() {
+        return labelSatelite;
     }
 
 
