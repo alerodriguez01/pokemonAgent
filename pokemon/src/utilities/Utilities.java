@@ -8,13 +8,18 @@ import java.util.List;
 import java.util.Random;
 
 public class Utilities {
+    private static List<List<Integer>> lugares = null;
+    private static int idLugarInicialAgente = -1;
+    private static int energiaInicialAgente = 100;
+
+    // MAPA COMPLETO
+    //region
+    ///*
     public static final int CANT_LUGARES = 29;
     public static final int ID_LUGAR_MAESTRO = 21;
     public static final int CANT_ADVERSARIOS = 14; // Sin incluir al maestro
     public static final int CANT_POKEBOLAS = 5;
-    private static int idLugarInicialAgente = -1;
-    private static int energiaInicialAgente = 100;//250;//1000;
-    private static List<List<Integer>> lugares = null;
+
 
     public static List<List<Integer>> crearMapa() {
 
@@ -23,7 +28,7 @@ public class Utilities {
             lugares = new ArrayList<>();
 
             // Mapa completo
-            ///*
+
             // Lugar 0
             lugares.add(Arrays.asList(1));
             // Lugar 1
@@ -82,11 +87,27 @@ public class Utilities {
             lugares.add(Arrays.asList(21, 23, 28));
             // Lugar 28
             lugares.add(Arrays.asList(26, 27));
-            //*/
 
+        }
+        return lugares;
+    }
+    //*/
+    // endregion
 
-            //America:
-            /*
+    // MAPA AMERICA
+    //region
+    /*
+    public static final int CANT_LUGARES = 10;
+    public static final int ID_LUGAR_MAESTRO = 8;
+    public static final int CANT_ADVERSARIOS = 4; // Sin incluir al maestro
+    public static final int CANT_POKEBOLAS = 1;
+
+    public static List<List<Integer>> crearMapa() {
+
+        // Establecer lugares
+        if (lugares == null) {
+            lugares = new ArrayList<>();
+
             // Lugar 0
             lugares.add(Arrays.asList(1));
             // Lugar 1
@@ -107,12 +128,11 @@ public class Utilities {
             lugares.add(Arrays.asList(3, 7, 9));
             // Lugar 9
             lugares.add(Arrays.asList(1, 8));
-
-             */
-
         }
         return lugares;
     }
+     */
+    //endregion
 
     public static int getPosInicialAgente() {
 
