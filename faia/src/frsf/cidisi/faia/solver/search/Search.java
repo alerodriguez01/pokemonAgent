@@ -19,6 +19,7 @@ package frsf.cidisi.faia.solver.search;
 
 import java.util.Vector;
 
+import agent.PokemonAgentState;
 import frsf.cidisi.faia.agent.search.GoalTest;
 import frsf.cidisi.faia.agent.search.Problem;
 import frsf.cidisi.faia.agent.search.SearchAction;
@@ -98,7 +99,7 @@ public class Search extends Solve {
             // This is the first node of the node's queue that will be expanded
             NTree firstNode = (NTree) searchStrategy.getNode();
 
-            //System.out.println("Profundidad: " + firstNode.getDeep());
+            // System.out.println("Nodo: " + firstNode.action + ", profundidad: " + firstNode.getDeep() + ", vida: " + ((PokemonAgentState)firstNode.agentState).getEnergiaActual());
 
             // If the actual node is a goal node then the search must finish.-
             if (goalTest.isGoalState(firstNode.getAgentState())) {
