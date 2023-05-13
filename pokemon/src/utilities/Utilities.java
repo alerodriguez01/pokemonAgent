@@ -100,7 +100,7 @@ public class Utilities {
     public static final int CANT_LUGARES = 10;
     public static final int ID_LUGAR_MAESTRO = 8;
     public static final int CANT_ADVERSARIOS = 4; // Sin incluir al maestro
-    public static final int CANT_POKEBOLAS = 1;
+    public static final int CANT_POKEBOLAS = 3;
 
     public static List<List<Integer>> crearMapa() {
 

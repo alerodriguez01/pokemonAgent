@@ -46,8 +46,7 @@ public class PokemonEnvironmentState extends EnvironmentState {
         lugarPokebolas.add(false);
         lugarPokebolas.add(false);
         lugarPokebolas.add(true);
-
-         */
+        */
 
         // Setea cada lugar con su adversario
         crearAdversarios();
@@ -55,16 +54,15 @@ public class PokemonEnvironmentState extends EnvironmentState {
         adversarios = new ArrayList<>();
         // Adversarios en 1, 4, 6, 7, 8
         adversarios.add(null);
-        adversarios.add(new Adversario(0, 15, false));
+        adversarios.add(new Adversario(0, 15, false, 3));
         adversarios.add(null);
         adversarios.add(null);
-        adversarios.add(new Adversario(1, 15, false));
+        adversarios.add(new Adversario(1, 15, false, 3));
         adversarios.add(null);
-        adversarios.add(new Adversario(2, 15, false));
-        adversarios.add(new Adversario(3, 15, false));
-        adversarios.add(new Adversario(4, 100, true));
+        adversarios.add(new Adversario(2, 15, false, 3));
+        adversarios.add(new Adversario(3, 15, false, 3));
+        adversarios.add(new Adversario(4, 100, true, 3));
         adversarios.add(null);
-
          */
 
         energiaAgente = Utilities.getEnergiaInicialAgente();
