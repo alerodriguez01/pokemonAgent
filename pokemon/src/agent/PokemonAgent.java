@@ -81,15 +81,18 @@ public class PokemonAgent extends SearchBasedAgent {
     @Override
     public Action selectAction() {
         // Create the search strategy
-        DepthFirstSearch strategy = new DepthFirstSearch();
+        //DepthFirstSearch strategy = new DepthFirstSearch();
+        BreathFirstSearch strategy = new BreathFirstSearch();
+
         /*
         IStepCostFunction costFunction = new PokemonCostFunction();
         UniformCostSearch strategy = new UniformCostSearch(costFunction);
         */
+
         /*
         IEstimatedCostFunction heuristic = new PokemonHeuristic();
         GreedySearch strategy = new GreedySearch(heuristic);
-         */
+        */
 
         /**
          * Another search strategy examples:

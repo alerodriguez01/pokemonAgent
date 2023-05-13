@@ -56,12 +56,12 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
     @Override
     public void start() {
-
+        /*
         System.out.println("----------------------------------------------------");
         System.out.println("--- " + this.getSimulatorName() + " ---");
         System.out.println("----------------------------------------------------");
         System.out.println();
-
+        */
         Perception perception;
         Action action;
         GoalBasedAgent agent;
@@ -82,23 +82,23 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
         do {
 
-            System.out.println("------------------------------------");
+            //System.out.println("------------------------------------");
 
             // Uso de satelite perception
             if(enfriamientoSatelite == 0){
 
                 enfriamientoSatelite = 5 + random.nextInt(6);
-                System.out.println("Sending satelite perception to agent...");
+                //System.out.println("Sending satelite perception to agent...");
                 perception = this.getSatelitePercept();
                 agent.see(perception);
-                System.out.println("Satelite perception: " + perception);
+                //System.out.println("Satelite perception: " + perception);
                 ui.getLabelSatelite().setVisible(true);
             } else{ // Perception normal
                 enfriamientoSatelite--;
-                System.out.println("Sending perception to agent...");
+                //System.out.println("Sending perception to agent...");
                 perception = this.getPercept();
                 agent.see(perception);
-                System.out.println("Perception: " + perception);
+                //System.out.println("Perception: " + perception);
                 ui.getLabelSatelite().setVisible(false);
             }
             PokemonAgent pokemonAgent = (PokemonAgent) agent;
@@ -115,18 +115,18 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             }
              */
 
-            System.out.println("Agent State: " + agent.getAgentState());
-            System.out.println("Environment: " + environment);
+            //System.out.println("Agent State: " + agent.getAgentState());
+            //System.out.println("Environment: " + environment);
 
-            System.out.println("Asking the agent for an action...");
+            //System.out.println("Asking the agent for an action...");
             action = agent.selectAction();
 
             if (action == null) {
                 break;
             }
 
-            System.out.println("Action returned: " + action);
-            System.out.println();
+            System.out.println(/*"Action returned: " +*/ action);
+            //System.out.println();
 
             this.mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getEnergiaAgente(), action);
 

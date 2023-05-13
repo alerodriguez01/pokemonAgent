@@ -14,7 +14,7 @@ public class Utilities {
 
     // MAPA COMPLETO
     //region
-    ///*
+    /*
     public static final int CANT_LUGARES = 29;
     public static final int ID_LUGAR_MAESTRO = 21;
     public static final int CANT_ADVERSARIOS = 14; // Sin incluir al maestro
@@ -26,6 +26,8 @@ public class Utilities {
         // Establecer lugares
         if (lugares == null) {
             lugares = new ArrayList<>();
+
+
 
             // Mapa completo
 
@@ -91,12 +93,12 @@ public class Utilities {
         }
         return lugares;
     }
-    //*/
+    */
     // endregion
 
     // MAPA AMERICA
     //region
-    /*
+    ///*
     public static final int CANT_LUGARES = 10;
     public static final int ID_LUGAR_MAESTRO = 8;
     public static final int CANT_ADVERSARIOS = 4; // Sin incluir al maestro
@@ -131,7 +133,7 @@ public class Utilities {
         }
         return lugares;
     }
-     */
+     //*/
     //endregion
 
     public static int getPosInicialAgente() {
