@@ -142,7 +142,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
             // Introducir delay para ver los movimientos de los enemigos y agente
             try {
-                TimeUnit.MILLISECONDS.sleep(10);
+                TimeUnit.MILLISECONDS.sleep(1500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

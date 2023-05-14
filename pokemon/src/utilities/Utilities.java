@@ -11,23 +11,63 @@ public class Utilities {
     private static List<List<Integer>> lugares = null;
     private static int idLugarInicialAgente = -1;
     private static int energiaInicialAgente = 100;
-
-    // MAPA COMPLETO
-    //region
-    ///*
-    public static final int CANT_LUGARES = 29;
-    public static final int ID_LUGAR_MAESTRO = 21;
-    public static final int CANT_ADVERSARIOS = 14; // Sin incluir al maestro
-    public static final int CANT_POKEBOLAS = 5;
-
+    public static int CANT_LUGARES = 29;
+    public static int ID_LUGAR_MAESTRO = 21;
+    public static int CANT_ADVERSARIOS = 14; // Sin incluir al maestro
+    public static int CANT_POKEBOLAS = 5;
 
     public static List<List<Integer>> crearMapa() {
 
         // Establecer lugares
         if (lugares == null) {
-            lugares = new ArrayList<>();
+            mapaCompleto();
+            //mapaAmerica();
+        }
+        return lugares;
+    }
 
-            // Mapa completo
+    private static List<List<Integer>> mapaAmerica() {
+
+        CANT_LUGARES = 10;
+        ID_LUGAR_MAESTRO = 8;
+        CANT_ADVERSARIOS = 4; // Sin incluir al maestro
+        CANT_POKEBOLAS = 3;
+
+        lugares = new ArrayList<>();
+
+        // Lugar 0
+        lugares.add(Arrays.asList(1));
+        // Lugar 1
+        lugares.add(Arrays.asList(0, 2, 9));
+        // Lugar 2
+        lugares.add(Arrays.asList(1, 7, 3));
+        // Lugar 3
+        lugares.add(Arrays.asList(2, 6, 4, 8));
+        // Lugar 4
+        lugares.add(Arrays.asList(3, 5));
+        // Lugar 5
+        lugares.add(Arrays.asList(4, 6));
+        // Lugar 6
+        lugares.add(Arrays.asList(5, 3));
+        // Lugar 7
+        lugares.add(Arrays.asList(2, 8));
+        // Lugar 8
+        lugares.add(Arrays.asList(3, 7, 9));
+        // Lugar 9
+        lugares.add(Arrays.asList(1, 8));
+
+        return lugares;
+
+    }
+
+    private static void mapaCompleto() {
+
+            CANT_LUGARES = 29;
+            ID_LUGAR_MAESTRO = 21;
+            CANT_ADVERSARIOS = 14; // Sin incluir al maestro
+            CANT_POKEBOLAS = 5;
+
+            lugares = new ArrayList<>();
 
             // Lugar 0
             lugares.add(Arrays.asList(1));
@@ -87,52 +127,7 @@ public class Utilities {
             lugares.add(Arrays.asList(21, 23, 28));
             // Lugar 28
             lugares.add(Arrays.asList(26, 27));
-
-        }
-        return lugares;
     }
-    //*/
-    // endregion
-
-    // MAPA AMERICA
-    //region
-    /*
-    public static final int CANT_LUGARES = 10;
-    public static final int ID_LUGAR_MAESTRO = 8;
-    public static final int CANT_ADVERSARIOS = 4; // Sin incluir al maestro
-    public static final int CANT_POKEBOLAS = 3;
-
-    public static List<List<Integer>> crearMapa() {
-
-        // Establecer lugares
-        if (lugares == null) {
-            lugares = new ArrayList<>();
-
-            // Lugar 0
-            lugares.add(Arrays.asList(1));
-            // Lugar 1
-            lugares.add(Arrays.asList(0, 2, 9));
-            // Lugar 2
-            lugares.add(Arrays.asList(1, 7, 3));
-            // Lugar 3
-            lugares.add(Arrays.asList(2, 6, 4, 8));
-            // Lugar 4
-            lugares.add(Arrays.asList(3, 5));
-            // Lugar 5
-            lugares.add(Arrays.asList(4, 6));
-            // Lugar 6
-            lugares.add(Arrays.asList(5, 3));
-            // Lugar 7
-            lugares.add(Arrays.asList(2, 8));
-            // Lugar 8
-            lugares.add(Arrays.asList(3, 7, 9));
-            // Lugar 9
-            lugares.add(Arrays.asList(1, 8));
-        }
-        return lugares;
-    }
-     */
-    //endregion
 
     public static int getPosInicialAgente() {
 
