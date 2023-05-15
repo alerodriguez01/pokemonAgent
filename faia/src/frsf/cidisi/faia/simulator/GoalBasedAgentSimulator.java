@@ -82,6 +82,8 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
         StringBuilder acciones = new StringBuilder("");
 
+        int cantAcciones = 0;
+
         do {
 
             System.out.println("------------------------------------");
@@ -135,6 +137,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
             this.actionReturned(agent, action);
 
             acciones.append(action + ", ");
+            cantAcciones++;
 
             // Necesario para no sugerir siempre el moverse a y escapar a en un orden especifico.
             // Evita entrar en un bucle.
@@ -152,7 +155,7 @@ public abstract class GoalBasedAgentSimulator extends Simulator {
 
         mostrarUI(ui, ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarActualAgente(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getAdversarios(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getLugarPokebolas(), ((PokemonEnvironmentState) environment.getEnvironmentState()).getEnergiaAgente(), action);
 
-        System.out.println("Acciones ejecutadas: " + acciones);
+        System.out.println("Acciones ejecutadas (" + cantAcciones + "): " + acciones);
 
         // Check what happened, if agent has reached the goal or not.
         if (this.agentSucceeded(action)) {
